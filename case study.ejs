@@ -1,0 +1,290 @@
+<%- include('./partials/head') %>
+    <!-- Navbar section -->
+    <%- include('./partials/header') %>
+        <!-- This is left sidebar  -->
+        <%- include('./partials/left-sidebar') %>
+            <!-- This is right side section -->
+            <main class="main" id="mainContent">
+                <div class="base-section coustom-section mt-5 p-5">
+                    <!--DASHBOARD CONTENT START-->
+                    <div class="breadcrumbs-container">
+                        <ul class="breadcrumb">
+                            <li><a href="../html/dashboard.html">ADMIN</a></li>
+                            <li><a href="">Case-study</a></li>
+                        </ul>
+                    </div>
+                    <div class="errorHtml"></div>
+                    <div class="card table-card">
+                        <div
+                            class="card-header table-card-header text-uppercase d-flex align-items-center justify-content-between">
+                            <div>
+                                <h5>PROGRAM LIST</h5>
+                            </div>
+                            <div class="me-2">
+                                <a class="btn btn-danger" href="/admin/programs/download"><i
+                                        class="fas fa-download"></i>
+                                    Download </a>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                    <i class="fas fa-plus"></i></button>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body table-responsive">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <label>Show Entries</label>
+                                    <select class="form-select" id="changeEntry">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="150">150</option>
+                                        <option value="200">200</option>
+                                        <option value="250">250</option>
+                                        <option value="300">300</option>
+                                        <option value="350">350</option>
+                                        <option value="400">400</option>
+                                        <option value="500">500</option>
+                                        <option value="800">800</option>
+                                        <option value="1000">1000</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <div class="table-searchbar-container"><button type="button"><i
+                                                class="fas fa-search"></i>
+                                        </button><input type="search" id="searchkeyword" placeholder="Enter keywords"
+                                            class="table-searchbar">
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table custom-table" boder="2" id="case-study-list">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Author's First name</th>
+                                    <th>author last name</th>
+                                    <th>Title of case study</th>
+                                    <th>Edition </th>
+                                    <th>Publisher Name</th>
+                                    <th>Volume number</th>
+                                    <th>Publication Year</th>
+                                    <th>Action</th>
+                                </thead>
+                                <% taskList.forEach(function(task) { %>
+                                    <tr>
+                                        <td data-task-id="<%- task.id %>"> <%- task.id %> </td>
+                                        <td class="fname"> <%- task.fname %> </td>
+                                        <td class="lname"> <%- task.lname%> </td>
+                                        <td class="title_of_case_study "> <%- task.title_of_case_study %> </td>
+                                        <td class="edition"><%- task.edition%></td>
+                                        <td class="volume"><%- task.volume%></td>
+                                        <td class="publisher_name"><%- task.publisher_name%></td>
+                                        <td class="publication_year"><%- task.publication_year%></td>
+                                        <td> <a class="view-program" class="delete" data-task-id="<%- task.id %>"><i
+                                                    class="fa-solid fa-eye"></i></a>
+                                            <a class="edit-program" class="delete" data-task-id="<%- task.id %>"><i
+                                                    class="fa fa-edit"></i></a>
+                                            <a class="delete-program" class="delete" data-task-id="<%- task.id %>"><i
+                                                    class="fa-solid fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                            </table>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p>Total entries:1
+                                    </p>
+                                </div>
+                                <div>
+                                    <p id="pagination" class="pagination-search"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Import Modal -->
+                    <div class="modal fade" id="open-program-modal" tabindex="-1" aria-labelledby="open-program-modal"
+                        aria-hidden="true">
+                    </div>
+                    <!-- EDIT PROGRAM AND UPDATE -->
+                    <div class="modal fade" id="edit-program-modal" tabindex="-1" aria-labelledby="editModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel">Update Program</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div id="errorHtml"></div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Program Name</label>
+                                        <input type="text" class="form-control" id="program_name" name="program_name">
+                                        <input type="hidden" class="form-control" id="hidden_id" name="hidden_id">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Program Type</label>
+                                        <select class="form-control" name="program_type_lid" id="program_type_lid">
+
+                                            <option value="1">Full Time</option>
+
+                                            <option value="2">Part Time</option>
+
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="abbr" class="form-label">Program Abbr</label>
+                                        <input type="text" class="form-control" id="abbr" name="abbr">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary updateProgram">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </main>
+            <!-- Modal  form -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen" role="document">
+                    <div class="modal-content" style="padding: 5rem;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Case Study</h5>
+                            <div class="close" data-dismiss="modal" aria-label="Close" id="close">
+                                <i class="fas fa-times fa-2x"></i>
+                            </div>
+                        </div>
+                        <!-- modal body -->
+
+                        <div class="base-section coustom-section mt-5">
+                            <h3 class="text-center mb-5">Case Study</h3>
+                            <div class="row">
+                                <!-- author's first name -->
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <div class="form-group col">
+                                        <label for="firstname" class="form-label  fw-bold">Author's first name</label>
+                                        <input type="text" name="fname" id="fname" class="form-control"
+                                            placeholder="First name">
+                                    </div>
+                                </div>
+
+                                <!-- Author's last name -->
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <div class="form-group col">
+                                        <label for="lastname" class="form-label  fw-bold">Author's last name</label>
+                                        <input type="text" name="lname" id="lname" class="form-control"
+                                            placeholder="Last name">
+                                    </div>
+                                </div>
+                                <!-- Title of case study -->
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <label for="caseStudy" class="form-label fw-bold">Title of case study</label>
+                                    <input type="text" name="case-study" id="title_of_case_study" class="form-control"
+                                        placeholder="Title of case study">
+                                </div>
+                                <!-- Edition -->
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <label for="edition" class="form-label fw-bold">Edition</label>
+                                    <input type="text" name="case-study" id="edition" class="form-control"
+                                        placeholder="Optional">
+                                </div>
+                                <!-- Volume number -->
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <label for="Volume" class="form-label fw-bold">Volume number</label>
+                                    <input type="text" name="vol" id="volume" class="form-control"
+                                        placeholder="Optional">
+                                </div>
+                                <!-- Publisher Name -->
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <label for="publisherName" class="form-label fw-bold">Publisher Name</label>
+                                    <input type="text" name="vol" id="publisher_name" class="form-control"
+                                        placeholder="Pulisher name">
+                                </div>
+
+                                <!-- Publication Year -->
+                                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                    <label for="publicationYear" class="form-label fw-bold">Publication Year</label>
+                                    <input type="text" name="Year" id="publication_year" class="form-control"
+                                        placeholder="Publication Year">
+                                </div>
+                                <!-- Add your modal footer buttons if needed -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-md btn-success" data-dismiss="modal"
+                                        id="submitBtn">Submit</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('./partials/footer') %>
+
+                <script>
+                    var taskList = document.getElementById('case-study-list');
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const submitBtn = document.getElementById('submitBtn');
+                        submitBtn.addEventListener('click', async function () {
+                            const fname = document.getElementById('fname').value;
+                            const lname = document.getElementById('lname').value;
+                            const title_of_case_study = document.getElementById('title_of_case_study').value;
+                            const edition = document.getElementById('edition').value;
+                            const volume = document.getElementById('volume').value;
+                            const publisher_name = document.getElementById('publisher_name').value;
+                            const publication_year = document.getElementById('publication_year').value;
+
+                            const response = await fetch('/case-study/insert', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    fname,
+                                    lname,
+                                    title_of_case_study,
+                                    edition,
+                                    publisher_name,
+                                    volume,
+                                    publication_year,
+                                }),
+                            });
+
+                            const data = await response.json();
+                            console.log('data ===>>>>', data);
+
+                            if (data.status === 'done') {
+                                const taskId = data.taskId;
+                                console.log('taskid===>', taskId)
+
+                                // Append new row to the table 
+                                const newRow = document.createElement('tr');
+
+                                newRow.innerHTML = `
+                                    <td>${taskId}</td>
+                                    <td>${fname} </td>
+                                    <td>${lname}</td>
+                                    <td>${title_of_case_study}</td>
+                                    <td>${edition}</td>
+                                    <td>${publisher_name}</td>
+                                    <td>${volume}</td>
+                                    <td>${publication_year}</td>
+                                    <td>
+                                        <a class="view-program" data-task-id="${taskId}"><i class="fa-solid fa-eye"></i></a>
+                                                                <a class="edit" data-task-id="${taskId}"><i class="fa fa-edit"></i></a>
+                                                                <a class="delete"data-task-id="${taskId}"><i class="fa-solid fa-trash"></i></a>
+                                    </td>`;
+
+                                taskList.querySelector('tbody').appendChild(newRow);
+                            }
+                        });
+                    });
+                </script>
+
+                <%- include('./partials/footer-end') %>
