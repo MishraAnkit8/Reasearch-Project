@@ -1,0 +1,294 @@
+<%- include('./partials/head') %>
+<!-- inline css -->
+<!-- Navbar section -->
+<%- include('./partials/header') %>
+<!-- This is left sidebar  -->
+<%- include('./partials/left-sidebar') %>
+<!-- This is right side section -->
+<main class="main" id="mainContent">
+    <div class="base-section coustom-section mt-5 p-5">
+        <!--DASHBOARD CONTENT START-->
+        <div class="breadcrumbs-container">
+            <ul class="breadcrumb">
+                <li><a href="/dashboard">ADMIN</a></li>
+                <li><a href="">Research Journal</a></li>
+            </ul>
+        </div>
+        <div class="errorHtml"></div>
+        <div class="card table-card">
+            <div class="card-header table-card-header text-uppercase d-flex align-items-center justify-content-between">
+                <div>
+                    <h5>PROGRAM LIST</h5>
+                </div>
+                <div class="me-2">
+                    <a class="btn btn-danger" href="/admin/programs/download"><i class="fas fa-download"></i>
+                        Download </a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#journal-paper-modal">
+                        <i class="fas fa-plus"></i></button>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body table-responsive">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <label>Show Entries</label>
+                        <select class="form-select" id="changeEntry">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="150">150</option>
+                            <option value="200">200</option>
+                            <option value="250">250</option>
+                            <option value="300">300</option>
+                            <option value="350">350</option>
+                            <option value="400">400</option>
+                            <option value="500">500</option>
+                            <option value="800">800</option>
+                            <option value="1000">1000</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div class="table-searchbar-container"><button type="button"><i class="fas fa-search"></i>
+                            </button><input type="search" id="searchkeyword" placeholder="Enter keywords"
+                                class="table-searchbar">
+                        </div>
+                    </div>
+                </div>
+                <table class="table custom-table" id="journal-paper-list">
+                    <thead>
+                        <th>#</th>
+                        <th>Year</th>
+                        <th>School</th>
+                        <th>Campus</th>
+                        <th>Policy Cadre</th>
+                        <th>Publisher</th>
+                        <th>All authors</th>
+                        <th>Total No. of Authors</th>
+                        <th>Name of NMIMS Authors</th>
+                        <th>Journal Name</th>
+                        <th>Action</th>
+                    </thead>
+                    <% journalData .forEach(function(task) { %>
+                        <tr>
+                            <td data-task-id="<%- task.id %>"> <%- task.id %> </td>
+                            <td class="year"> <%- task.year %> </td>
+                            <td class="school"> <%- task.school%> </td>
+                            <td class="campus"> <%- task.campus %> </td>
+                            <td class="policy_cadre"><%- task.policy_cadre%></td>
+                            <td class="all_authors"><%- task.all_authors%></td>
+                            <td class="total_authors"><%- task.total_authors%></td>
+                            <td class="nmims_authors"><%- task.nmims_authors%></td>
+                            <td class="journal_name"><%- task.journal_name %></td>
+                            <td class="publisher"><%- task.publisher%></td>
+                            <td> <a class="view-program" class="delete" data-task-id="<%- task.id %>"><i
+                                        class="fa-solid fa-eye"></i></a>
+                                <a class="edit-program" class="delete" data-task-id="<%- task.id %>"><i
+                                        class="fa fa-edit"></i></a>
+                                <a class="delete-program" class="delete" data-task-id="<%- task.id %>"><i
+                                        class="fa-solid fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </table>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p>Total entries:1
+                        </p>
+                    </div>
+                    <div>
+                        <p id="pagination" class="pagination-search"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Import Modal -->
+        <div class="modal fade" id="open-program-modal" tabindex="-1" aria-labelledby="open-program-modal"
+            aria-hidden="true">
+        </div>
+        <!-- EDIT PROGRAM AND UPDATE -->
+        <div class="modal fade" id="edit-program-modal" tabindex="-1" aria-labelledby="editModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Update Program</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="errorHtml"></div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Program Name</label>
+                            <input type="text" class="form-control" id="program_name" name="program_name">
+                            <input type="hidden" class="form-control" id="hidden_id" name="hidden_id">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Program Type</label>
+                            <select class="form-control" name="program_type_lid" id="program_type_lid">
+                                <option value="1">Full Time</option>
+                                <option value="2">Part Time</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="abbr" class="form-label">Program Abbr</label>
+                            <input type="text" class="form-control" id="abbr" name="abbr">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary updateProgram">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- modal form  -->
+<div class="modal fade " id="journal-paper-modal" tabindex="-1" role="dialog" aria-labelledby="journal-paper-modal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg modal-fullscreen p-5" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="journal-paper-modal">journal paper</h5>
+                <div class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times fa-2x"></i></span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Date -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <label for="year" class="form-label fw-bold">Year</label>
+                        <input type="text" name="years" id="year" class="form-control" placeholder="2023" />
+                    </div>
+                    <!-- school -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <label for="school" class="form-label fw-bold">School:</label>
+                        <input type="text" name="nameofschool" id="school" class="form-control"
+                            placeholder="Name of school">
+                    </div>
+                    <!-- Campus -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <label for="campus" class="form-label fw-bold">Campus:</label>
+                        <input type="text" name="nameofCampus" id="campus" class="form-control"
+                            placeholder="Name of Campus" />
+                    </div>
+
+                    <!--Policy Cadre -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <label for="policyCadre" class="form-label fw-bold">Policy Cadre:</label>
+                        <input type="text" name="policy-cadre" id="policy_cadre" class="form-control"
+                            placeholder="policyCadre" />
+                    </div>
+                    <!-- Publisher -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <label for="publisher" class="form-label fw-bold">
+                            Publisher
+                        </label>
+                        <input type="text" name="publisher" id="publisher" class="form-control" />
+                    </div>
+                    <!-- All authors -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <label for="allAuthors" class="form-label fw-bold">All authors</label>
+                        <input type="text" name="all-authors" id="all_authors" class="form-control"
+                            placeholder="All authors">
+                    </div>
+                    <!-- Total No. of Authors -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <label for="totalAuthors" class="form-label fw-bold">Total No. of Authors</label>
+                        <input type="text" name="total-authors" id="total_authors " class="form-control"
+                            placeholder="Total No. of Authors">
+                    </div>
+                    <!-- Name of NMIMS Authors -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <label for="NMIMSAuthors" class="form-label fw-bold">Name of NMIMS Authors</label>
+                        <input type="text" name="nmims-authors" id="nmims_authors" class="form-control"
+                            placeholder="Name of NMIMS Authors">
+                    </div>
+                     <!-- Journal Name -->
+                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <label for="journalName" class="form-label fw-bold">Journal Name</label>
+                        <input type="text" name="journal-name" id="journal_name" class="form-control"
+                            placeholder="Journal Name">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- inline Javascript -->
+<script>
+    var journalData  = document.getElementById('journal-paper-list');
+    document.addEventListener('DOMContentLoaded', function() { 
+        const submitBtn = document.getElementById('submitBtn');
+
+        submitBtn.addEventListener('click', async function() { 
+            const year = document.getElementById('year');
+            const school = document.getElementById('school');
+            const campus = document.getElementById('campus');
+            const policy_cadre = document.getElementById('policyCadre');
+            const all_authors = document.getElementById('all_authors');
+            const total_authors = document.getElementById('total_authors');
+            const nmims_authors = document.getElementById('nmims_authors');
+            const journal_name = document.getElementById('journal_name');
+            const publisher = document.getElementById('publisher');
+
+            // inserting data from frontEnd
+
+            const response = await fetch('/journal-paper/insert', {
+                method : 'POST' ,
+                headers : {
+                    'content-type' : 'application/json'
+                },
+                body : JSON.stringify({
+                    year,
+                    school,
+                    campus,
+                    policy_cadre,
+                    all_authors,
+                    total_authors,
+                    nmims_authors,
+                    journal_name,
+                    publisher
+                })
+            });
+
+            const data = response.json();
+            console.log('data ===>', data);
+            if(data.status === 'done'){
+                const taskId = data.taskId;
+                //  insert new row to the journal_papers table 
+
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                <td>${taskId}</td>
+                <td>${year}</td>
+                <td>${campus}</td>
+                <td>${policy_cadre}</td>
+                <td>${all_authors} </td>
+                <td>${total_authors}</td>
+                <td>${nmims_authors}</td>
+                <td>${journal_name}</td>
+                <td>${publisher} </td>
+                <td>
+                    <a class="view-program" data-task-id="${taskId}"><i class="fa-solid fa-eye"></i></a>
+                    <a class="edit" data-task-id="${taskId}"><i class="fa fa-edit"></i></a>
+                    <a class="delete"data-task-id="${taskId}"><i class="fa-solid fa-trash"></i></a>
+                </td>  ` ;
+
+                journalData.querySelector('tbody').appendChild(newRow);
+
+            }
+        })
+    })
+
+</script>
+<%- include('./partials/footer') %>
+<%- include('./partials/footer-end') %>
