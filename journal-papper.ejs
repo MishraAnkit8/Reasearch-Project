@@ -230,34 +230,29 @@
         const submitBtn = document.getElementById('submitBtn');
 
         submitBtn.addEventListener('click', async function() { 
-            const year = document.getElementById('year');
-            const school = document.getElementById('school');
-            const campus = document.getElementById('campus');
-            const policy_cadre = document.getElementById('policyCadre');
-            const all_authors = document.getElementById('all_authors');
-            const total_authors = document.getElementById('total_authors');
-            const nmims_authors = document.getElementById('nmims_authors');
-            const journal_name = document.getElementById('journal_name');
-            const publisher = document.getElementById('publisher');
+            const journalDetails = {};
+            
+            journalDetails.year = document.getElementById('year');
+            journalDetails.school = document.getElementById('school');
+            journalDetails.campus = document.getElementById('campus');
+            journalDetails.policy_cadre = document.getElementById('policyCadre');
+            journalDetails.all_authors = document.getElementById('all_authors');
+            journalDetails.total_authors = document.getElementById('total_authors');
+            journalDetails.nmims_authors = document.getElementById('nmims_authors');
+            journalDetails.journal_name = document.getElementById('journal_name');
+            journalDetails.publisher = document.getElementById('publisher');
 
             // inserting data from frontEnd
+            const payload = {
+                journalDetails : journalDetails
+            }
 
-            const response = await fetch('/journal-paper/insert', {
+            const response = await fetch('/research/journal-paper/create', {
                 method : 'POST' ,
                 headers : {
                     'content-type' : 'application/json'
                 },
-                body : JSON.stringify({
-                    year,
-                    school,
-                    campus,
-                    policy_cadre,
-                    all_authors,
-                    total_authors,
-                    nmims_authors,
-                    journal_name,
-                    publisher
-                })
+                body : JSON.stringify(payload)
             });
 
             const data = response.json();
