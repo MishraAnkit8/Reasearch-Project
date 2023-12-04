@@ -5,9 +5,11 @@ module.exports.renderJournalPaper = async () => {
     return result.rows  
 };
 
-module.exports.insertJournalPapper = async (journalData) => {
-    console.log(journalData);
-    const newJournalPaper = await journalPaperModel.createJournalPaper(journalData);
+module.exports.insertJournalPapper = async (body) => {
+    const {journalDetails} =  body;
+    console.log('journalDetails>>> ', journalDetails);
+
+    const newJournalPaper = await journalPaperModel.createJournalPaper({journalDetails});
     return newJournalPaper ;
 
 };
