@@ -85,9 +85,9 @@
                             <td> <a class="view" data-task-id="<%- task.id %>"><i
                                         class="fa-solid fa-eye" data-task-id="<%- task.id %>"></i></a>
                                 <a  class="edit" data-task-id="<%- task.id %>"><i
-                                        class="fa fa-edit" data-task-id="<%- task.id %>"></i></a>
-                                <a  class="delete" data-task-id="<%- task.id %>"><i
-                                        class="fa-solid fa-trash delete" data-task-id="<%- task.id %>"></i></a>
+                                        class="fa fa-edit edit" data-task-id="<%- task.id %>"></i></a>
+                                <a  class="delete"  data-task-id="<%- task.id %>"><i
+                                        class="fa-solid fa-trash delete"  data-task-id="<%- task.id %>"></i></a>
                             </td>
                         </tr>
                         <% }); %>
@@ -263,7 +263,6 @@
             .then((result) => {
                 return result.json()
             })
-
             .then((data) => { 
                 console.log('data ===>>>' , data);
                 if(data.status ==='done') {
@@ -289,7 +288,6 @@
                     </td>  ` ;
 
                     journalData.querySelector('tbody').appendChild(newRow); 
-
                     $('#journal-paper-modal').modal('hide');
                     alert('data saved successfully');
                     }
@@ -299,7 +297,6 @@
                     
     });
 });
-
 // for deleting
 journalData.addEventListener('click', function (event) {
     if (event.target.classList.contains('delete')) {
@@ -327,9 +324,21 @@ journalData.addEventListener('click', function (event) {
                 }
             })
             .catch((error) => {
-                console.error('Error deleting journal paper:', error);
+                
                 alert('An error occurred while deleting the element');
             });
+    }
+    // for updating 
+    if(event.target.classList.contains('edit')) {
+        event.preventDefault();
+        console.log('click');
+        const tableRow = event.target.parentElement.parentElement.parentElement;
+        console.log('updating the table row ', tableRow);
+        const taskId = event.target.getAttribute('data-task-id');
+        console.log('updating table row ID :', taskId);
+        const journalSchool = document.querySelector('.school');
+        console.log('journal school' , journalSchool);
+
     }
 });
 
