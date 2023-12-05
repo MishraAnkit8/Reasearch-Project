@@ -11,22 +11,19 @@ module.exports.renderJournalPaper = async (req, res, next) => {
 module.exports.createJournalPaper = async (req, res, next) => {
     const journalPaperData = await journalPaperService.insertJournalPapper(req.body) ;
     console.log(" journalPaperData ===>" , journalPaperData);
-    
     if(journalPaperData && journalPaperData.rows[0].id) {
         console.log('ID' , journalPaperData.rows[0].id);
         res.status(200).send({
             'status' : 'done',
             taskId : journalPaperData.rows[0].id
         });
-
     }
     else {
         res.status(500).send({
             'status' : 'failed',
             'massage' : 'failed to insert new row'
         });
-    }
-
+    };
 };
 
 // controller for deleting
@@ -40,7 +37,7 @@ module.exports.delJournalPaper = async (req, res, next) => {
         res.status(200).send({
             success : true ,
             massage : delJournalData.massage
-        })
+        });
     }
     else{
         res.status(500).send({
@@ -48,6 +45,24 @@ module.exports.delJournalPaper = async (req, res, next) => {
             massage : delJournalData.massage
         })
 
-    }
+    };
+};
 
+// controller for updating 
+module.exports.updateJournalPaper = async (req, res, next) => {
+    console.log('updation Id ==> :' , req.body);
+    const updateJournalDetails = req.body.updateJournalDetails;
+    const updatePaper = await journalPaperService.updateJournalPaper({taskId, updateJournalDetails});
+    if(updatePaper.success){
+        res.status(200).send({
+            success : true ,
+            massage : updatePaper.massage
+        });
+    }
+    else{
+        res.status(500).send({
+            success  : false,
+            massage : updatePaper.massage
+        });
+    };
 };
