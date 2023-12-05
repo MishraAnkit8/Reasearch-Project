@@ -77,17 +77,17 @@
                             <td class="school"> <%- task.school%> </td>
                             <td class="campus"> <%- task.campus %> </td>
                             <td class="policy_cadre"><%- task.policy_cadre%></td>
+                            <td class="publisher"><%- task.publisher%></td>
                             <td class="all_authors"><%- task.all_authors%></td>
                             <td class="total_authors"><%- task.total_authors%></td>
                             <td class="nmims_authors"><%- task.nmims_authors%></td>
                             <td class="journal_name"><%- task.journal_name %></td>
-                            <td class="publisher"><%- task.publisher%></td>
-                            <td> <a class="view-program" class="delete" data-task-id="<%- task.id %>"><i
-                                        class="fa-solid fa-eye"></i></a>
-                                <a class="edit-program" class="delete" data-task-id="<%- task.id %>"><i
-                                        class="fa fa-edit"></i></a>
-                                <a class="delete-program" class="delete" data-task-id="<%- task.id %>"><i
-                                        class="fa-solid fa-trash"></i></a>
+                            <td> <a class="view" data-task-id="<%- task.id %>"><i
+                                        class="fa-solid fa-eye" data-task-id="<%- task.id %>"></i></a>
+                                <a  class="edit" data-task-id="<%- task.id %>"><i
+                                        class="fa fa-edit" data-task-id="<%- task.id %>"></i></a>
+                                <a  class="delete" data-task-id="<%- task.id %>"><i
+                                        class="fa-solid fa-trash delete" data-task-id="<%- task.id %>"></i></a>
                             </td>
                         </tr>
                         <% }); %>
@@ -146,6 +146,7 @@
     </div>
 </main>
 <!-- modal form  -->
+
 <div class="modal fade " id="journal-paper-modal" tabindex="-1" role="dialog" aria-labelledby="journal-paper-modal"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg modal-fullscreen p-5" role="document">
@@ -161,18 +162,18 @@
                     <!-- Date -->
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <label for="year" class="form-label fw-bold">Year</label>
-                        <input type="text" name="years" id="year" class="form-control" placeholder="2023" />
+                        <input type="text" name="year" id="year" class="form-control" placeholder="2023" />
                     </div>
                     <!-- school -->
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <label for="school" class="form-label fw-bold">School:</label>
-                        <input type="text" name="nameofschool" id="school" class="form-control"
+                        <input type="text" name="schoolname" id="school" class="form-control"
                             placeholder="Name of school">
                     </div>
                     <!-- Campus -->
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <label for="campus" class="form-label fw-bold">Campus:</label>
-                        <input type="text" name="nameofCampus" id="campus" class="form-control"
+                        <input type="text" name="campusname" id="campus" class="form-control"
                             placeholder="Name of Campus" />
                     </div>
 
@@ -181,13 +182,6 @@
                         <label for="policyCadre" class="form-label fw-bold">Policy Cadre:</label>
                         <input type="text" name="policy-cadre" id="policy_cadre" class="form-control"
                             placeholder="policyCadre" />
-                    </div>
-                    <!-- Publisher -->
-                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                        <label for="publisher" class="form-label fw-bold">
-                            Publisher
-                        </label>
-                        <input type="text" name="publisher" id="publisher" class="form-control" />
                     </div>
                     <!-- All authors -->
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
@@ -198,7 +192,7 @@
                     <!-- Total No. of Authors -->
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <label for="totalAuthors" class="form-label fw-bold">Total No. of Authors</label>
-                        <input type="text" name="total-authors" id="total_authors " class="form-control"
+                        <input type="text" name="total-authors" id="total_authors" class="form-control"
                             placeholder="Total No. of Authors">
                     </div>
                     <!-- Name of NMIMS Authors -->
@@ -213,6 +207,14 @@
                         <input type="text" name="journal-name" id="journal_name" class="form-control"
                             placeholder="Journal Name">
                     </div>
+                    
+                      <!-- Publisher -->
+                      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <label for="publisher" class="form-label fw-bold">
+                            Publisher
+                        </label>
+                        <input type="text" name="publisher" id="publisher" class="form-control" />
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -223,8 +225,10 @@
     </div>
 </div>
 
+
 <!-- inline Javascript -->
 <script>
+    var journalPaperModal = document.getElementById('journal-paper-modal');
     var journalData  = document.getElementById('journal-paper-list');
     document.addEventListener('DOMContentLoaded', function() { 
         const submitBtn = document.getElementById('submitBtn');
@@ -232,57 +236,103 @@
         submitBtn.addEventListener('click', async function() { 
             const journalDetails = {};
             
-            journalDetails.year = document.getElementById('year');
-            journalDetails.school = document.getElementById('school');
-            journalDetails.campus = document.getElementById('campus');
-            journalDetails.policy_cadre = document.getElementById('policyCadre');
-            journalDetails.all_authors = document.getElementById('all_authors');
-            journalDetails.total_authors = document.getElementById('total_authors');
-            journalDetails.nmims_authors = document.getElementById('nmims_authors');
-            journalDetails.journal_name = document.getElementById('journal_name');
-            journalDetails.publisher = document.getElementById('publisher');
-
+            journalDetails.year = document.getElementById('year').value;
+            journalDetails.school = document.getElementById('school').value;
+            journalDetails.campus = document.getElementById('campus').value;
+            journalDetails.policy_cadre = document.getElementById('policy_cadre').value;
+            journalDetails.publisher = document.getElementById('publisher').value;
+            journalDetails.all_authors = document.getElementById('all_authors').value;
+            journalDetails.total_authors = document.getElementById('total_authors').value;
+            journalDetails.nmims_authors = document.getElementById('nmims_authors').value;
+            journalDetails.journal_name = document.getElementById('journal_name').value;
+            
             // inserting data from frontEnd
             const payload = {
                 journalDetails : journalDetails
             }
 
-            const response = await fetch('/research/journal-paper/create', {
+            console.log('PAYLOAD : ',payload);
+
+            fetch('/research/journal-paper/create', {
                 method : 'POST' ,
                 headers : {
                     'content-type' : 'application/json'
                 },
                 body : JSON.stringify(payload)
-            });
+            })
+            .then((result) => {
+                return result.json()
+            })
 
-            const data = response.json();
-            console.log('data ===>', data);
-            if(data.status === 'done'){
-                const taskId = data.taskId;
-                //  insert new row to the journal_papers table 
+            .then((data) => { 
+                console.log('data ===>>>' , data);
+                if(data.status ==='done') {
+                    taskId = data.taskId ;
+                    console.log('taskId' , taskId);
+                    //insert new row to the journal_papers table 
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                    <td>${taskId}</td>
+                    <td>${journalDetails.year}</td>
+                    <td>${journalDetails.school}</td>
+                    <td>${journalDetails.campus}</td>
+                    <td>${journalDetails.all_authors} </td>
+                    <td>${journalDetails.total_authors}</td>
+                    <td>${journalDetails.nmims_authors}</td>
+                    <td>${journalDetails.journal_name}</td>
+                    <td>${journalDetails.policy_cadre}</td>
+                    <td>${journalDetails.publisher}</td>
+                    <td>
+                        <a class="view-program" data-task-id="${taskId}"><i class="fa-solid fa-eye"></i></a>
+                        <a class="edit" data-task-id="${taskId}"><i class="fa fa-edit"></i></a>
+                        <a class="delete" data-task-id="${taskId}"><i class="fa-solid fa-trash"></i></a>
+                    </td>  ` ;
 
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                <td>${taskId}</td>
-                <td>${year}</td>
-                <td>${campus}</td>
-                <td>${policy_cadre}</td>
-                <td>${all_authors} </td>
-                <td>${total_authors}</td>
-                <td>${nmims_authors}</td>
-                <td>${journal_name}</td>
-                <td>${publisher} </td>
-                <td>
-                    <a class="view-program" data-task-id="${taskId}"><i class="fa-solid fa-eye"></i></a>
-                    <a class="edit" data-task-id="${taskId}"><i class="fa fa-edit"></i></a>
-                    <a class="delete"data-task-id="${taskId}"><i class="fa-solid fa-trash"></i></a>
-                </td>  ` ;
+                    journalData.querySelector('tbody').appendChild(newRow); 
 
-                journalData.querySelector('tbody').appendChild(newRow);
+                    $('#journal-paper-modal').modal('hide');
+                    alert('data saved successfully');
+                    }
+            }).catch((error) => {
+                console.log
+            })
+                    
+    });
+});
 
-            }
+// for deleting
+journalData.addEventListener('click', function (event) {
+    if (event.target.classList.contains('delete')) {
+        const tableRow = event.target.parentElement.parentElement.parentElement;
+        console.log('table item for delete', tableRow);
+        const taskId = event.target.getAttribute('data-task-id');
+        console.log('taskId for delete :', taskId);
+        // fetching api for delete
+        fetch('/research/journal-paper/delete', {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body : JSON.stringify({taskId})
+            
         })
-    })
+            .then((result) => {
+                return result.json();
+            })
+            .then((data) => {
+                if (data.success) { 
+                    tableRow.remove();
+                } else {
+                    alert('Unable to delete element: ' + data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error deleting journal paper:', error);
+                alert('An error occurred while deleting the element');
+            });
+    }
+});
+
 
 </script>
 <%- include('./partials/footer') %>
