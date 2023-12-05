@@ -4,8 +4,8 @@ module.exports.renderJournalPaper = async (req, res, next) => {
     const journalList = await journalPaperService.renderJournalPaper();
     res.render('journal-paper', {
         journalData : journalList
-    })
-}
+    });
+};
 
 // controller for inserting
 module.exports.createJournalPaper = async (req, res, next) => {
@@ -17,7 +17,7 @@ module.exports.createJournalPaper = async (req, res, next) => {
         res.status(200).send({
             'status' : 'done',
             taskId : journalPaperData.rows[0].id
-        })
+        });
 
     }
     else {
@@ -29,9 +29,13 @@ module.exports.createJournalPaper = async (req, res, next) => {
 
 };
 
-module.exports.deleteJournalPaper = async (req, res, next) => {
-    console.log('taskId for deletion==>' , req.body);
-    const delJournalData = await journalPaperService.deleteJournalPaper(req.body);
+// controller for deleting
+module.exports.delJournalPaper = async (req, res, next) => {
+    console.log(' deletion==>' , req.body);
+    const taskId = req.body.taskId;
+    console.log('controller taskID', taskId)
+    const parsedTaskId = parseInt(taskId, 10);
+    const delJournalData = await journalPaperService.deleteJournalPaper(parsedTaskId);
     if( delJournalData.success){
         res.status(200).send({
             success : true ,
