@@ -8,7 +8,7 @@ const autoDbW = dbPoolManager.get('autoDbW', autoriders_write_db);
 // for fetching journal paper data 
 module.exports.fetchJournalPaper = () => {
     let sql = {
-        text : 'SELECT id, year, school, campus, policy_cadre, all_authors, total_authors, nmims_authors, journal_name, publisher FROM journal_papers',
+        text : 'SELECT id, year, school, campus, policy_cadre, all_authors, total_authors, nmims_authors, journal_name, publisher FROM journal_papers ORDER BY id',
 
     };
     return autoDbR.query(sql);
@@ -44,9 +44,9 @@ module.exports.updateJournalPaperData = async ({taskId , updateJournalDetails}) 
          text : ` UPDATE journal_papers 
                 SET year = $2, school = $3, campus = $4, policy_cadre = $5, all_authors = $6,
                     total_authors = $7, nmims_authors = $8, journal_name = $9, publisher = $10
-                WHERE id = $1 `,
+                WHERE id = $1`,
         values : [taskId, year, school, campus, policy_cadre, all_authors, total_authors, nmims_authors, journal_name, publisher]
     };
     return autoDbW.query(sql);
-    
+ 
 };
