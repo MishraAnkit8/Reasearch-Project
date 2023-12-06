@@ -281,9 +281,9 @@
                             <td>${journalDetails.policy_cadre}</td>
                             <td>${journalDetails.publisher}</td>
                             <td>
-                                <a class="view-program" data-task-id="${taskId}"><i class="fa-solid fa-eye"></i></a>
-                                <a class="edit"  data-task-id="${taskId}"><i class="fa fa-edit edit"></i></a>
-                                <a class="delete" data-task-id="${taskId}"><i class="fa-solid fa-trash delete"></i></a>
+                                <a class="view-program" data-task-id="${taskId}"><i data-task-id="${taskId}" class="fa-solid fa-eye"></i></a>
+                                <a class="edit"  data-task-id="${taskId}"><i  data-task-id="${taskId}" class="fa fa-edit edit"></i></a>
+                                <a class="delete" data-task-id="${taskId}"><i  data-task-id="${taskId}" class="fa-solid fa-trash delete"></i></a>
                             </td>  ` ;
                             journalTable.querySelector('tbody').appendChild(newRow)
                     $('#journal-paper-modal').modal('hide');
