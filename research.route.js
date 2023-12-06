@@ -11,8 +11,8 @@ router.get('/', asyncErrorHandler(researchController.renderResearch));
 //journal paper 
 router.get('/journal-paper', asyncErrorHandler(journalController.renderJournalPaper));
 router.post('/journal-paper/create', asyncErrorHandler(journalController.createJournalPaper));
-// router.post('/journal-paper/edit', asyncErrorHandler(journalPaperController.renderJournalPaper));
-// router.post('/journal-paper/delete', asyncErrorHandler(journalPaperController.renderJournalPaper));
+router.post('/journal-paper/update', asyncErrorHandler(journalController.updateJournalPaper));
+router.post('/journal-paper/delete', asyncErrorHandler(journalController.delJournalPaper));
 
 
 //case studies
