@@ -454,8 +454,27 @@
             const viewTotalAuthors =  document.getElementById('view-total-authors');
             const viewPolicyCadre = document.getElementById('view-policy-cadre');
 
-             
 
+            fetch('research/journal-paper/view' , {
+                method : 'post',
+                headers : {
+                    'content-type': 'application/json'
+                },
+                body : JSON.stringify({
+                    taskId : taskId
+                })
+
+             })
+             .then((result) => {
+                    return result.json();
+             })
+             .then((data) => {
+                if(data.status === 'done'){
+                    console.log('data is viewing');   
+                }
+             }).catch((error) =>{
+
+             });
             $('#journal-paper-modal-view').modal('show');
         }
         
