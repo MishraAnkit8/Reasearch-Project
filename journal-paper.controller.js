@@ -68,3 +68,22 @@ module.exports.updateJournalPaper = async (req, res, next) => {
         });
     };
 };
+
+module.exports.viewJournalPaper = async(req, res, next) => {
+    const taskId = req.body.taskId;
+    console.log('taskID for View ', taskId);
+    console.log('viewDataDetails ==>', req.body);
+    const viewJournalDetails = await journalPaperService.viewJournalPaper({taskId});
+    if(viewJournalDetails.status === 'done'){
+        res.status(200).send({
+            status : 'done',
+            massage : viewJournalDetails.masssage
+        })
+    }
+    else{
+        res.status(500).send({
+            status : 'failed',
+            massage : viewJournalDetails.masssage   
+        })
+    }   
+}
