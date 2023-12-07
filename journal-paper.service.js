@@ -53,12 +53,9 @@ module.exports.updateJournalPaper = async ({taskId, updateJournalDetails}) => {
 // service for view
 module.exports.viewJournalPaper = async ({taskId}) => {
     const viewJournalPaperData = await journalPaperModel.viewJournalPaperData({taskId});
-    if(viewJournalPaperData.rowCount ==1){
-        return {
-            status : 'done' ,
-            masssage : 'data fetched'
-        }
-    }
+    if(viewJournalPaperData.rowCount === 1){
+        return  viewJournalPaperData.rows;
+    } 
     else{
         return {
             status : 'failed',
