@@ -13,7 +13,7 @@ router.get('/journal-paper', asyncErrorHandler(journalController.renderJournalPa
 router.post('/journal-paper/create', asyncErrorHandler(journalController.createJournalPaper));
 router.post('/journal-paper/update', asyncErrorHandler(journalController.updateJournalPaper));
 router.post('/journal-paper/delete', asyncErrorHandler(journalController.delJournalPaper));
-router.post('/research/journal-paper/view' , asyncErrorHandler(journalController.viewJournalPaper));
+router.post('/journal-paper/view' , asyncErrorHandler(journalController.viewJournalPaper));
 
 
 //case studies
