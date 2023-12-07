@@ -32,7 +32,7 @@ module.exports.delJournalPaper = async (req, res, next) => {
     const taskId = req.body.taskId;
     console.log('controller taskID', taskId) 
     const delJournalData = await journalPaperService.deleteJournalPaper(taskId);
-    if( delJournalData.success){
+    if( delJournalData.success === true){
         res.status(200).send({
             success : true ,
             massage : delJournalData.massage
@@ -51,19 +51,19 @@ module.exports.delJournalPaper = async (req, res, next) => {
 module.exports.updateJournalPaper = async (req, res, next) => {
     const updateJournalDetails = req.body;
     const taskId = req.body.taskId;
-    console.log('taskId', taskId)
+    console.log('taskId for updation in controller', taskId)
     console.log('updateJournalDetails ==>>' , updateJournalDetails);
     const updatePaper = await journalPaperService.updateJournalPaper({taskId, updateJournalDetails});
-    console.log('id for updation', taskId);
-    if(updatePaper.success){
+    console.log('id for updation', updatePaper);
+    if(updatePaper.status === 'done'){
         res.status(200).send({
-            success : true,
+            'status' : 'done',
             massage : updatePaper.massage
         });
     }
     else{
         res.status(500).send({
-            success  : false,
+            'status'  : 'failed',
             massage : updatePaper.massage
         });
     };
