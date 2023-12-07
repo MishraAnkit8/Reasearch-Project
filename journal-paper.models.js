@@ -50,3 +50,13 @@ module.exports.updateJournalPaperData = async ({taskId , updateJournalDetails}) 
     return autoDbW.query(sql);
  
 };
+
+// for viewing 
+
+module.exports.viewJournalPaperData = async ({taskId}) => {
+    const sql = {
+        text : `SELECT * FROM journal_papers WHERE id =$1  `,
+        values : [taskId]
+    }
+    return autoDbR.query(sql);
+}
