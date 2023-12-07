@@ -74,11 +74,9 @@ module.exports.viewJournalPaper = async(req, res, next) => {
     console.log('taskID for View ', taskId);
     console.log('viewDataDetails ==>', req.body);
     const viewJournalDetails = await journalPaperService.viewJournalPaper({taskId});
-    if(viewJournalDetails.status === 'done'){
-        res.status(200).send({
-            status : 'done',
-            massage : viewJournalDetails.masssage
-        })
+    console.log('data=>>', viewJournalDetails)
+    if(viewJournalDetails){
+        res.status(200).send(viewJournalDetails)
     }
     else{
         res.status(500).send({
