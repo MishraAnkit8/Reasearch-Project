@@ -82,12 +82,10 @@
                             <td class="total-authors"><%- task.total_authors%></td>
                             <td class="nmims-authors"><%- task.nmims_authors%></td>
                             <td class="journal-name"><%- task.journal_name %></td>
-                            <td> <a class="view" data-task-id="<%- task.id %>"><i
-                                        class="fa-solid fa-eye" data-task-id="<%- task.id %>"></i></a>
-                                <a  class="edit" data-task-id="<%- task.id %>"><i
-                                        class="fa fa-edit edit" data-task-id="<%- task.id %>"></i></a>
-                                <a  class="delete"  data-task-id="<%- task.id %>"><i
-                                        class="fa-solid fa-trash delete"  data-task-id="<%- task.id %>"></i></a>
+                            <td> 
+                                <a class="view" data-task-id="<%- task.id %>"><i class="fa-solid fa-eye view" data-task-id="<%- task.id %>"></i></a>
+                                <a  class="edit" data-task-id="<%- task.id %>"><i class="fa fa-edit edit" data-task-id="<%- task.id %>"></i></a>
+                                <a  class="delete"  data-task-id="<%- task.id %>"><i class="fa-solid fa-trash delete"  data-task-id="<%- task.id %>"></i></a>
                             </td>
                         </tr>
                         <% }); %>
@@ -149,7 +147,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="journal-paper-modal">journal paper</h5>
-                <div class="close"  data-dismiss="modal" aria-label="Close">
+                <div class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><i class="fas fa-times fa-2x"></i></span>
                 </div>
             </div>
@@ -197,15 +195,15 @@
                         <input type="text" name="nmims-authors" id="nmims-authors" class="form-control"
                             placeholder="Name of NMIMS Authors">
                     </div>
-                     <!-- Journal Name -->
-                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <!-- Journal Name -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <label for="journalName" class="form-label fw-bold">Journal Name</label>
                         <input type="text" name="journal-name" id="journal-name" class="form-control"
                             placeholder="Journal Name">
                     </div>
-                    
-                      <!-- Publisher -->
-                      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+
+                    <!-- Publisher -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <label for="publisher" class="form-label fw-bold">
                             Publisher
                         </label>
@@ -214,25 +212,99 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary"  id="closeBtn" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" id="closeBtn" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="submit-button">Submit</button>
-                <button type="button" class="btn btn-primary d-none " id="update-button" >updateBtn</button>
+                <button type="button" class="btn btn-primary d-none " id="update-button">updateBtn</button>
             </div>
         </div>
     </div>
 </div>
+<!-- modal form for view -->
+<div class="modal fade " id="journal-paper-modal-view" tabindex="-1" role="dialog" aria-labelledby="journal-paper-modal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg modal-fullscreen p-5" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times fa-2x"></i></span>
+                </div>
+            </div>
+            <!-- modal form body -->
+            <section class="white-box">
+                <div class="container">
+                    <h2 class="title">RESEARCH JOURNAL</h2>
+                <div class="form-element" >
+                    <div class="row">
+                        <!-- Date -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <label for="view-year" class="form-label fw-bold">Year:</label>
+                            <p id="view-year"></p>
+                        </div>
+                        <!-- school -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <label for="school" class="form-label fw-bold">School:</label>
+                            <p id="school"></p>
+                        </div>
+                        <!-- Campus -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <label for="view-campus" class="form-label fw-bold">Campus:</label>
+                            <p id="view-campus"></p>
+                        </div>
+    
+                        <!--Policy Cadre -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <label for="policy-cadre" class="form-label fw-bold">Policy Cadre:</label>
+                            <p id="view-policy-cadre"></p>
+                        </div>
+                        <!-- All authors -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <label for="view-all-authors" class="form-label fw-bold">All authors:</label>
+                            <p id="view-all-authors"></p>
+                        </div>
+                        <!-- Total No. of Authors -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <label for="view-total-authors" class="form-label fw-bold">Total No. of Authors:</label>
+                            <p id="view-total-authors"></p>
+                        </div>
+                        <!-- Name of NMIMS Authors -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <label for="view-nmims-authors" class="form-label fw-bold">Name of NMIMS Authors:</label>
+                            <p id="view-nmims-authors"></p>
+                        </div>
+                        <!-- Journal Name -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <label for="view-journal-name" class="form-label fw-bold">Journal Name:</label>
+                            <p id="view-journal-name"></p>
+                        </div>
+    
+                        <!-- Publisher -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <label for="view-publisher" class="form-label fw-bold">
+                                Publisher
+                            </label>
+                            <p id="view-publisher"></p>
+                        </div>
+                    </div>
+                    
+            </div>
+        </div>
+            </section>
+        </div>
+    </div>
 
+</div>
 <!-- inline Javascript -->
 <script>
 
     const journalPaperModal = document.getElementById('journal-paper-modal');
+    const journalPaperModalView = document.getElementById('journal-paper-modal-view');
+     journalPaperModalView.style.display ='none';
     const journalTable = document.getElementById('journal-paper-list');
     const submitBtn = document.getElementById('submit-button');
     const updateBtn = document.getElementById('update-button');
     const openMadalFormBtn = document.getElementById('modal-form');
     openMadalFormBtn.addEventListener('click' , async function(event){
         if(event.target.classList.contains('plus')){
-            console.log('clickedddddddd');
             // for button visualization
             submitBtn.classList.remove('d-none');
             updateBtn.classList.add('d-none');
@@ -244,7 +316,6 @@
     submitBtn.addEventListener('click', async function () {
         const journalDetails = {};
         journalDetails.year = document.getElementById('year').value;
-        console.log('journalDetails.year :', journalDetails.year);
         journalDetails.school = document.getElementById('school').value;
         journalDetails.campus = document.getElementById('campus').value;
         journalDetails.policy_cadre = document.getElementById('policy-cadre').value;
@@ -273,7 +344,7 @@
             })
             .then((data) => {
                 console.log('data ===>>>', data);
-                if (data.status === 'done') {
+                if (data.status === done) {
                     taskId = data.taskId;
                     console.log('taskId ==>', taskId);
                     //insert new row to the journal_papers table 
@@ -336,6 +407,7 @@
                 });
         }
         // for updating 
+
         if (event.target.classList.contains('edit')) {
             $('#journal-paper-modal').modal('show');
             rowToBeUpdated = event.target.closest('tr');
@@ -365,10 +437,26 @@
             document.getElementById('nmims-authors').value = nmims_authors.textContent;
             document.getElementById('journal-name').value = journal_name.textContent;
             document.getElementById('total-authors').value = total_authors.textContent;
-            console.log('total_authors', total_authors.textContent);
             document.getElementById('policy-cadre').value = policy_cadre.textContent;
+        }
 
+        // for viewing record of journal paper
+        if(event.target.classList.contains('view')){
+            taskId = event.target.getAttribute('data-task-id');
+            // updating value with actuall value
+            const viewYear = document.getElementById('view-year');
+            const viewSchool=  document.getElementById('view-school');
+            const viewCampus = document.getElementById('view-campus');
+            const viewAllAuthors = document.getElementById('view-all-authors');
+            const viewPublisher = document.getElementById('view-publisher');
+            const viewNmimsAuthors = document.getElementById('view-nmims-authors');
+            const viewJournalName = document.getElementById('view-journal-name');
+            const viewTotalAuthors =  document.getElementById('view-total-authors');
+            const viewPolicyCadre = document.getElementById('view-policy-cadre');
 
+             
+
+            $('#journal-paper-modal-view').modal('show');
         }
         
     });
@@ -443,6 +531,9 @@
                 $('#journal-paper-modal').modal('hide');
             })
         })
+
+        // view journal data
+
 
     </script>
 <%- include('./partials/footer') %>
