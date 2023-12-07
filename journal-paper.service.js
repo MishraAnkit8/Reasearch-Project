@@ -17,7 +17,7 @@ module.exports.insertJournalPapper = async (body) => {
 // service for delete
 module.exports.deleteJournalPaper = async (taskId) => {
     const result = await journalPaperModel.deleteJournalPaper({ taskId });
-    if(result.rowCount ===1){
+    if(result.rowCount === 1){
         return {
             success : true ,
             massage : 'row is deleted successfully'
@@ -35,15 +35,16 @@ module.exports.deleteJournalPaper = async (taskId) => {
 module.exports.updateJournalPaper = async ({taskId, updateJournalDetails}) => {
     const updateJournalData = await journalPaperModel.updateJournalPaperData({taskId, updateJournalDetails});
     console.log('id updation in service', taskId);
-    if(updateJournalData.rowCount === 1){
+    console.log('ROW count ', updateJournalData.rowCount);
+    if(updateJournalData.rowCount == 1){
         return {
-            success : true ,
+            'status' : 'done' ,
             massage : 'data updated successfully'
         };
     }
     else{
         return {
-            success : false ,
+            'status' : 'failed' ,
             massage : 'data is not updating'
         }
     };
