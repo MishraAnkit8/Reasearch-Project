@@ -25,7 +25,7 @@
                         Download </a>
                     <button type="button" class="btn btn-primary" data-toggle="modal"
                         data-target="#journal-paper-modal">
-                        <i class="fas fa-plus"></i></button>
+                        <i id="modal-form" class="fas fa-plus plus"></i></button>
                     </button>
                 </div>
             </div>
@@ -76,12 +76,12 @@
                             <td class="year"> <%- task.year %> </td>
                             <td class="school"> <%- task.school%> </td>
                             <td class="campus"> <%- task.campus %> </td>
-                            <td class="policy_cadre"><%- task.policy_cadre%></td>
+                            <td class="policy-cadre"><%- task.policy_cadre%></td>
                             <td class="publisher"><%- task.publisher%></td>
-                            <td class="all_authors"><%- task.all_authors%></td>
-                            <td class="total_authors"><%- task.total_authors%></td>
-                            <td class="nmims_authors"><%- task.nmims_authors%></td>
-                            <td class="journal_name"><%- task.journal_name %></td>
+                            <td class="all-authors"><%- task.all_authors%></td>
+                            <td class="total-authors"><%- task.total_authors%></td>
+                            <td class="nmims-authors"><%- task.nmims_authors%></td>
+                            <td class="journal-name"><%- task.journal_name %></td>
                             <td> <a class="view" data-task-id="<%- task.id %>"><i
                                         class="fa-solid fa-eye" data-task-id="<%- task.id %>"></i></a>
                                 <a  class="edit" data-task-id="<%- task.id %>"><i
@@ -176,31 +176,31 @@
                     <!--Policy Cadre -->
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <label for="policyCadre" class="form-label fw-bold">Policy Cadre:</label>
-                        <input type="text" name="policy-cadre" id="policy_cadre" class="form-control"
+                        <input type="text" name="policy-cadre" id="policy-cadre" class="form-control"
                             placeholder="policyCadre" />
                     </div>
                     <!-- All authors -->
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <label for="allAuthors" class="form-label fw-bold">All authors</label>
-                        <input type="text" name="all-authors" id="all_authors" class="form-control"
+                        <input type="text" name="all-authors" id="all-authors" class="form-control"
                             placeholder="All authors">
                     </div>
                     <!-- Total No. of Authors -->
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <label for="totalAuthors" class="form-label fw-bold">Total No. of Authors</label>
-                        <input type="text" name="total-authors" id="total_authors" class="form-control"
+                        <input type="text" name="total-authors" id="total-authors" class="form-control"
                             placeholder="Total No. of Authors">
                     </div>
                     <!-- Name of NMIMS Authors -->
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <label for="NMIMSAuthors" class="form-label fw-bold">Name of NMIMS Authors</label>
-                        <input type="text" name="nmims-authors" id="nmims_authors" class="form-control"
+                        <input type="text" name="nmims-authors" id="nmims-authors" class="form-control"
                             placeholder="Name of NMIMS Authors">
                     </div>
                      <!-- Journal Name -->
                      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <label for="journalName" class="form-label fw-bold">Journal Name</label>
-                        <input type="text" name="journal-name" id="journal_name" class="form-control"
+                        <input type="text" name="journal-name" id="journal-name" class="form-control"
                             placeholder="Journal Name">
                     </div>
                     
@@ -215,8 +215,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"  id="closeBtn" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
-                <button type="button" class="btn btn-primary d-none " id="updateBtn" >updateBtn</button>
+                <button type="button" class="btn btn-primary" id="submit-button">Submit</button>
+                <button type="button" class="btn btn-primary d-none " id="update-button" >updateBtn</button>
             </div>
         </div>
     </div>
@@ -227,8 +227,17 @@
 
     const journalPaperModal = document.getElementById('journal-paper-modal');
     const journalTable = document.getElementById('journal-paper-list');
-    const submitBtn = document.getElementById('submitBtn');
-    const updateBtn = document.getElementById('updateBtn');
+    const submitBtn = document.getElementById('submit-button');
+    const updateBtn = document.getElementById('update-button');
+    const openMadalFormBtn = document.getElementById('modal-form');
+    openMadalFormBtn.addEventListener('click' , async function(event){
+        if(event.target.classList.contains('plus')){
+            console.log('clickedddddddd');
+            // for button visualization
+            submitBtn.classList.remove('d-none');
+            updateBtn.classList.add('d-none');
+        }
+    })
     let rowToBeUpdated, taskId;
     const updatedJournalPaperDetails = {};
 
@@ -238,12 +247,12 @@
         console.log('journalDetails.year :', journalDetails.year);
         journalDetails.school = document.getElementById('school').value;
         journalDetails.campus = document.getElementById('campus').value;
-        journalDetails.policy_cadre = document.getElementById('policy_cadre').value;
+        journalDetails.policy_cadre = document.getElementById('policy-cadre').value;
         journalDetails.publisher = document.getElementById('publisher').value;
-        journalDetails.all_authors = document.getElementById('all_authors').value;
-        journalDetails.total_authors = document.getElementById('total_authors').value;
-        journalDetails.nmims_authors = document.getElementById('nmims_authors').value;
-        journalDetails.journal_name = document.getElementById('journal_name').value;
+        journalDetails.all_authors = document.getElementById('all-authors').value;
+        journalDetails.total_authors = document.getElementById('total-authors').value;
+        journalDetails.nmims_authors = document.getElementById('nmims-authors').value;
+        journalDetails.journal_name = document.getElementById('journal-name').value;
 
         // inserting data from frontEnd
         const payload = {
@@ -270,22 +279,22 @@
                     //insert new row to the journal_papers table 
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
-                            <td>${taskId}</td>
-                            <td>${journalDetails.year}</td>
-                            <td>${journalDetails.school}</td>
-                            <td>${journalDetails.campus}</td>
-                            <td>${journalDetails.all_authors} </td>
-                            <td>${journalDetails.total_authors}</td>
-                            <td>${journalDetails.nmims_authors}</td>
-                            <td>${journalDetails.journal_name}</td>
-                            <td>${journalDetails.policy_cadre}</td>
-                            <td>${journalDetails.publisher}</td>
+                            <td >${taskId}</td>
+                            <td class="year">${journalDetails.year}</td>
+                            <td class="school">${journalDetails.school}</td>
+                            <td class="campus">${journalDetails.campus}</td>
+                            <td class="all-authors">${journalDetails.all_authors} </td>
+                            <td class="total-authors">${journalDetails.total_authors}</td>
+                            <td class="nmims-authors">${journalDetails.nmims_authors}</td>
+                            <td class="journal-name">${journalDetails.journal_name}</td>
+                            <td class="policy-cadre">${journalDetails.policy_cadre}</td>
+                            <td class="publisher">${journalDetails.publisher}</td>
                             <td>
-                                <a class="view-program" data-task-id="${taskId}"><i data-task-id="${taskId}" class="fa-solid fa-eye"></i></a>
+                                <a class="view" data-task-id="${taskId}"><i data-task-id="${taskId}" class="fa-solid fa-eye view"></i></a>
                                 <a class="edit"  data-task-id="${taskId}"><i  data-task-id="${taskId}" class="fa fa-edit edit"></i></a>
                                 <a class="delete" data-task-id="${taskId}"><i  data-task-id="${taskId}" class="fa-solid fa-trash delete"></i></a>
                             </td>  ` ;
-                            journalTable.querySelector('tbody').appendChild(newRow)
+                    journalTable.querySelector('tbody').appendChild(newRow)
                     $('#journal-paper-modal').modal('hide');
                     alert('data saved successfully');
                 }
@@ -315,7 +324,7 @@
                     return result.json();
                 })
                 .then((data) => {
-                    if (data.success) {
+                    if (data.success == true) {
                         tableRow.remove();
                     } else {
                         alert('Unable to delete element: ' + data.message);
@@ -341,22 +350,24 @@
             const year = rowToBeUpdated.querySelector('.year');
             const school = rowToBeUpdated.querySelector('.school');
             const campus = rowToBeUpdated.querySelector('.campus');
-            const all_authors = rowToBeUpdated.querySelector('.all_authors');
-            const total_authors = rowToBeUpdated.querySelector('.total_authors');
-            const nmims_authors = rowToBeUpdated.querySelector('.nmims_authors');
-            const journal_name = rowToBeUpdated.querySelector('.journal_name');
-            const policy_cadre = rowToBeUpdated.querySelector('.policy_cadre');
+            const all_authors = rowToBeUpdated.querySelector('.all-authors');
+            const total_authors = rowToBeUpdated.querySelector('.total-authors');
+            const nmims_authors = rowToBeUpdated.querySelector('.nmims-authors');
+            const journal_name = rowToBeUpdated.querySelector('.journal-name');
+            const policy_cadre = rowToBeUpdated.querySelector('.policy-cadre');
             const publisher = rowToBeUpdated.querySelector('.publisher');
             // updating value with actuall value
             document.getElementById('year').value = year.textContent;
             document.getElementById('school').value = school.textContent;
-            document.getElementById('campus').value = school.textContent;
-            document.getElementById('all_authors').value = all_authors.textContent;
+            document.getElementById('campus').value = campus.textContent;
+            document.getElementById('all-authors').value = all_authors.textContent;
             document.getElementById('publisher').value = publisher.textContent;
-            document.getElementById('nmims_authors').value = nmims_authors.textContent;
-            document.getElementById('journal_name').value = journal_name.textContent;
-            document.getElementById('total_authors').value = total_authors.textContent;
-            document.getElementById('policy_cadre').value = policy_cadre.textContent;
+            document.getElementById('nmims-authors').value = nmims_authors.textContent;
+            document.getElementById('journal-name').value = journal_name.textContent;
+            document.getElementById('total-authors').value = total_authors.textContent;
+            console.log('total_authors', total_authors.textContent);
+            document.getElementById('policy-cadre').value = policy_cadre.textContent;
+
 
         }
         
@@ -367,18 +378,19 @@
         const updatedYear = document.getElementById('year').value;
         const updatedSchool = document.getElementById('school').value;
         const updatedCampus = document.getElementById('campus').value;
-        const updatedPolicy_cadre = document.getElementById('policy_cadre').value;
+        const updatedPolicy_cadre = document.getElementById('policy-cadre').value;
         const updatedPublisher = document.getElementById('publisher').value;
-        const updatedAll_author = document.getElementById('all_authors').value;
-        const updatedTotal_authors = document.getElementById('total_authors').value;
-        const updatedNmims_authors = document.getElementById('nmims_authors').value;
-        const updatedJournal_name = document.getElementById('journal_name').value;
+        const updatedAll_author = document.getElementById('all-authors').value;
+        const updatedTotal_authors = document.getElementById('total-authors').value;
+        const updatedNmims_authors = document.getElementById('nmims-authors').value;
+        const updatedJournal_name = document.getElementById('journal-name').value;
 
         
         
         updatedJournalPaperDetails.taskId = taskId
         updatedJournalPaperDetails.year = updatedYear
         updatedJournalPaperDetails.school = updatedSchool
+        updatedJournalPaperDetails.campus = updatedCampus
         updatedJournalPaperDetails.policy_cadre = updatedPolicy_cadre
         updatedJournalPaperDetails.publisher = updatedPublisher
         updatedJournalPaperDetails.all_authors = updatedAll_author
@@ -406,7 +418,7 @@
             .then((data) => {
                 console.log('data ==>>>', data);
 
-                if (data.success === true) {
+                if (data.status === 'done') {
 
                     console.log('rowToBeUpdated>>> ', rowToBeUpdated);
                     console.log('taskId >>>> ', taskId);
@@ -414,11 +426,11 @@
                     rowToBeUpdated.querySelector('.year').innerText = updatedJournalPaperDetails.year;
                     rowToBeUpdated.querySelector('.school').innerText = updatedJournalPaperDetails.school;
                     rowToBeUpdated.querySelector('.campus').innerText = updatedJournalPaperDetails.campus;
-                    rowToBeUpdated.querySelector('.all_authors').innerText = updatedJournalPaperDetails.all_authors;
-                    rowToBeUpdated.querySelector('.total_authors').innerText = updatedJournalPaperDetails.total_authors;
-                    rowToBeUpdated.querySelector('.nmims_authors').innerText = updatedJournalPaperDetails.nmims_authors;
-                    rowToBeUpdated.querySelector('.journal_name').innerText = updatedJournalPaperDetails.journal_name;
-                    rowToBeUpdated.querySelector('.policy_cadre').innerText = updatedJournalPaperDetails.policy_cadre;
+                    rowToBeUpdated.querySelector('.all-authors').innerText = updatedJournalPaperDetails.all_authors;
+                    rowToBeUpdated.querySelector('.total-authors').innerText = updatedJournalPaperDetails.total_authors;
+                    rowToBeUpdated.querySelector('.nmims-authors').innerText = updatedJournalPaperDetails.nmims_authors;
+                    rowToBeUpdated.querySelector('.journal-name').innerText = updatedJournalPaperDetails.journal_name;
+                    rowToBeUpdated.querySelector('.policy-cadre').innerText = updatedJournalPaperDetails.policy_cadre;
                     rowToBeUpdated.querySelector('.publisher').innerText = updatedJournalPaperDetails.publisher
                     
                 }
@@ -426,6 +438,7 @@
                 $('#journal-paper-modal').modal('hide');
             })
             .catch((error) => {
+                console.log("ERROIR : ",error);
                 alert('An error occurred while updating the element');
                 $('#journal-paper-modal').modal('hide');
             })
