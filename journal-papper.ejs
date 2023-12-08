@@ -233,58 +233,79 @@
             <section class="white-box">
                 <div class="container">
                     <h2 class="title">RESEARCH JOURNAL</h2>
-                <div class="form-element" >
+               
                     <div class="row">
                         <!-- Date -->
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                            <label for="view-year" class="form-label fw-bold">Year:</label>
-                            <p id="view-year"></p>
+                        <div class="col-lg-4 col-md-6  col-sm-12">
+                            <div class="box">
+                                <h3 class="task-sub-title" style="color: #0080ff;">Year:</h3>
+                                <b id="view-year"></b>
+                            </div>
                         </div>
                         <!-- school -->
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                            <label for="school" class="form-label fw-bold">School:</label>
-                            <p id="school"></p>
+                        <div class="col-lg-4 col-md-6  col-sm-12">
+                            <div class="box">
+                                <h3 class="task-sub-title" style="color: #0080ff;">School:</h3>
+                                <b id="view-school"></b>
+                            </div>
                         </div>
+
                         <!-- Campus -->
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                            <label for="view-campus" class="form-label fw-bold">Campus:</label>
-                            <p id="view-campus"></p>
+                        <div class="col-lg-4 col-md-6  col-sm-12">
+                            <div class="box">
+                                <h3 class="task-sub-title" style="color: #0080ff;">Campus:</h3>
+                                <b id="view-campus"></b>
+                            </div>
                         </div>
-    
+            
                         <!--Policy Cadre -->
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                            <label for="policy-cadre" class="form-label fw-bold">Policy Cadre:</label>
-                            <p id="view-policy-cadre"></p>
+                        <div class="col-lg-4 col-md-6  col-sm-12">
+                            <div class="box">
+                                <h3 class="task-sub-title" style="color: #0080ff;">Policy Cadre:</h3>
+                                <b id="view-policy-cadre"></b>
+                            </div>
                         </div>
+                    
                         <!-- All authors -->
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                            <label for="view-all-authors" class="form-label fw-bold">All authors:</label>
-                            <p id="view-all-authors"></p>
+                        <div class="col-lg-4 col-md-6  col-sm-12">
+                            <div class="box">
+                                <h3 class="task-sub-title" style="color: #0080ff;">All authors:</h3>
+                                <b id="view-all-authors"></b>
+                            </div>
                         </div>
+                        
                         <!-- Total No. of Authors -->
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                            <label for="view-total-authors" class="form-label fw-bold">Total No. of Authors:</label>
-                            <p id="view-total-authors"></p>
+                        <div class="col-lg-4 col-md-6  col-sm-12">
+                            <div class="box">
+                                <h3 class="task-sub-title" style="color: #0080ff;">Total No. of Authors:</h3>
+                                <b id="view-total-authors"></b>
+                            </div>
                         </div>
+                
                         <!-- Name of NMIMS Authors -->
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                            <label for="view-nmims-authors" class="form-label fw-bold">Name of NMIMS Authors:</label>
-                            <p id="view-nmims-authors"></p>
+                        <div class="col-lg-4 col-md-6  col-sm-12">
+                            <div class="box">
+                                <h3 class="task-sub-title" style="color: #0080ff;">Name of NMIMS Authors:</h3>
+                                <b id="view-nmims-authors"></b>
+                            </div>
                         </div>
+                    
                         <!-- Journal Name -->
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                            <label for="view-journal-name" class="form-label fw-bold">Journal Name:</label>
-                            <p id="view-journal-name"></p>
+                        <div class="col-lg-4 col-md-6  col-sm-12">
+                            <div class="box">
+                                <h3 class="task-sub-title" style="color: #0080ff;">Journal Name:</h3>
+                                <b id="view-journal-name"></b>
+                            </div>
                         </div>
-    
+                       
                         <!-- Publisher -->
-                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-                            <label for="view-publisher" class="form-label fw-bold">
-                                Publisher
-                            </label>
-                            <p id="view-publisher"></p>
+                        <div class="col-lg-4 col-md-6  col-sm-12">
+                            <div class="box">
+                                <h3 class="task-sub-title" style="color: #0080ff;">Publisher:</h3>
+                                <b id="view-publisher"></b>
+                            </div>
                         </div>
-                    </div>
+                    
                     
             </div>
         </div>
@@ -344,7 +365,7 @@
             })
             .then((data) => {
                 console.log('data ===>>>', data);
-                if (data.status === done) {
+                if (data.status === 'done') {
                     taskId = data.taskId;
                     console.log('taskId ==>', taskId);
                     //insert new row to the journal_papers table 
@@ -455,8 +476,8 @@
             const viewPolicyCadre = document.getElementById('view-policy-cadre');
 
 
-            fetch('research/journal-paper/view' , {
-                method : 'post',
+            fetch('/research/journal-paper/view' , {
+                method : 'POST',
                 headers : {
                     'content-type': 'application/json'
                 },
@@ -469,10 +490,23 @@
                     return result.json();
              })
              .then((data) => {
-                if(data.status === 'done'){
-                    console.log('data is viewing');   
-                }
+                    console.log('data is viewing',data);  
+                    viewYear.innerText = data[0].year;
+                    viewAllAuthors.innerText = data[0].all_authors;
+                    viewCampus.innerText = data[0].campus;
+                    viewTotalAuthors.innerText = data[0].total_authors;
+                    viewJournalName.innerText = data[0].journal_name;
+                    viewPolicyCadre.innerText = data[0].policy_cadre;
+                    viewNmimsAuthors.innerText = data[0].nmims_authors;
+                    viewSchool.innerText = data[0].school;
+                    console.log('school', data[0].school);
+                    viewPublisher.innerText = data[0].publisher;
+
+
+
+
              }).catch((error) =>{
+                console.log('error:', error);
 
              });
             $('#journal-paper-modal-view').modal('show');
