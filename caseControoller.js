@@ -1,62 +1,64 @@
-const caseStudyModel = require('../models/case-study-models');
+const caseStudyService = require('../services/case-study.service');
 
-module.exports.renderData = async (req, res, next) => {
-    const data = await caseStudyModel.fetchAll();
-    console.log(' before rendering the template >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',data.rows)
-    res.render('case-study', {
-        taskList: data.rows
-    });
-    console.log(' after render the template >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',data.rows)
-   
-}
+module.exports.renderCaseStudy = async (req, res, next) => {
+    const caseStudiesList =  await caseStudyService.fetchCaseStudy();
+    console.log("caseStudiesList : ", caseStudiesList.rows);
+    res.render('case-study' , {caseStudiesList : caseStudiesList.rows});
+};
 
-module.exports.insertTask = async (req, res ,next) => {
-  
-    try {
-        const newTask = await caseStudyModel.createCaseStudy(req.body);
-        console.log('task is created' , newTask)
-      
-
-        if (newTask &&  newTask.rows[0].id) {
-            console.log('New task created:', newTask);
-            console.log('ID:', newTask.rows[0].id);
-            res.status(200).json({ status: 'done', taskId: newTask.rows[0].id });
-        } else {
-            console.error('Failed to add the task. New task:', newTask);
-            res.status(500).json({ status: 'error', message: 'Failed to add the task' });
-        }
-    } catch (error) {
-        console.error('Error creating task:', error);
-        res.status(500).json({ status: 'error', message: 'An error occurred while adding the task' });
+module.exports.insertCaseStudyData = async(req, res, next) => {
+    console.log('req.body ===>', req.body);
+    const caseStudyInsertedData = await caseStudyService.insertCaseStudyData(req.body);
+    console.log('caseStudyID', caseStudyInsertedData.rows[0].id);
+    if(caseStudyInsertedData && caseStudyInsertedData.rows[0].id){
+        res.status(200).send({
+            status : 'done',
+            caseStudyId : caseStudyInsertedData.rows[0].id
+        })
+    }
+    else{
+        res.status(500).send({
+            status : 'failed',
+            massage : 'data in not inserting somthing went wrong'
+        })
     }
 };
 
-module.exports.deleteCaseStudy = async (req,res,next) =>{
-    const delCase = await caseStudyModel 
+module.exports.deleteCaseStudyData = async (req, res, next) => {
+    const caseStudyId = req.body.caseStudyId;
+    console.log('ID for deletion', req.body.caseStudyId);
+    const caseStudyData = await caseStudyService.deleteCaseStudyData(caseStudyId);
+    if(caseStudyData.status === 'done'){
+        res.status(200).send({
+            status : 'done',
+            massage : caseStudyData.massage
+        })
+    }
+    else{
+        res.status(500).send({
+            status : 'failed',
+            massage : caseStudyData.massage
+        })
+    }
 }
 
-module.exports.deleteCaseStudy = async (req, res, next) => {
-    try {
-        const delTask = await caseStudyModel.delete(req.body.taskId); // Assuming you pass the task ID correctly
-        console.log('id... in delete ...',req.body.taskId)
-        console.log('deltask ===>..',delTask);
-        console.log('delcout of row ==',delTask.rowCount)
-
-        if (delTask.rowCount === 1) {
-            res.status(200).json({
-                status: 'done'
-            });
-        } else {
-            res.status(404).json({
-                status: 'not found',
-                message: 'Task not found'
-            });
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({
-            status: 'error',
-            message: 'An error occurred while trying to delete the task'
-        });
-    }
+module.exports.upadateCaseStudies = async (req, res, next) => {
+   console.log(' updatedData  controller==>',  req.body);
+   const updatedCaseStudyData = req.body ;
+   const caseStudyId = req.body.caseStudyId;
+   console.log('caseStudyID for Updation controller ==>', caseStudyId);
+   console.log('updated name' , req.body.author_fname);
+   const upadtedCaseStudies = await caseStudyService.updateCaseStudies({caseStudyId , updatedCaseStudyData});
+   if(upadtedCaseStudies.status === 'done'){
+    res.status(200).send({
+        status : 'done' ,
+        massage : upadtedCaseStudies.massage
+    })
+   }
+   else{
+    res.status(500).send({
+        status : 'done' ,
+        massage : upadtedCaseStudies.massage
+      })
+   }
 };
