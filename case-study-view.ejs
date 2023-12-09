@@ -77,7 +77,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="custom-table" id="case-studies">
+                            <div class="custom-table" id="caseStudiesDataList">
                                 <div class="table-header">
                                     <div class="table-column">#</div>
                                     <div class="table-column">Author's First Name</div>
@@ -89,7 +89,7 @@
                                     <div class="table-column">Publication Year</div>
                                     <div class="table-column">Action</div>
                                 </div>
-                                <% caseStudiesList.forEach(function(caseStudy, index) { %>
+                                <% caseStudiesList.forEach(function(caseStudy) { %>
                                     <div class="row bg-light mb-3 p-2" data-case-id="<%- caseStudy.id %>">
                                         <div class="col"> <%- caseStudy.id %> </div>
                                         <div class="col author-first-name"> <%- caseStudy.author_fname %> </div>
@@ -399,7 +399,7 @@
 </div>
 <!-- inline javascript -->
 <script>
-  const caseStudiesDataList = document.getElementById('case-studies');
+  const caseStudiesDataList = document.getElementById('caseStudiesDataList');
   // for Modal Form sumit and upadate button 
   const caseStudyModalForm = document.getElementById('case-study');
   let caseStudyId , rowToBeUpdated ;
@@ -414,7 +414,7 @@
 
   })
 
-  submitBtn.addEventListener('click',async function () {
+    submitBtn.addEventListener('click',async function () {
     console.log('clikkedddd');
     const caseStudyData = {};
     caseStudyData.author_fname = document.getElementById('first-name').value;
@@ -452,40 +452,33 @@
         if(data.status === 'done'){
             caseStudyId = data.caseStudyId;
             console.log('caseId ==>>', caseStudyId);
-          // Create a new div for the entire case study row
-            // Create a new div for the entire case study row
-const newCaseStudy = document.createElement('div');
-newCaseStudy.classList.add('case-study-row', 'flex-container');
+          // CreatING NEW ROW
+            const newCaseStudy = document.createElement('div');
+            newCaseStudy.classList.add('case-study-row', 'flex-container');
 
-newCaseStudy.innerHTML = `
-    <div class="cell">${caseStudyId}</div>
-    <div class="cell author-first-name">${caseStudyData.author_fname}</div>
-    <div class="cell author-last-name">${caseStudyData.author_lname}</div>
-    <div class="cell title-of-case-study">${caseStudyData.title_of_case_study}</div>
-    <div class="cell edition">${caseStudyData.edition}</div>
-    <div class="cell volume-number">${caseStudyData.volume_number}</div>
-    <div class="cell publisher-name">${caseStudyData.publisher_name}</div>
-    <div class="cell publication-year">${caseStudyData.publication_year}</div>
-    <div class="cell page-number">${caseStudyData.page_number}</div>
-    <div class="cell url-of-case-study">${caseStudyData.url_of_case_study}</div>
-    <div class="cell number-of-nmims-authors">${caseStudyData.number_of_nmims_authors}</div>
-    <div class="cell nmims-authors">${caseStudyData.nmims_authors}</div>
-    <div class="cell nmims-campus-authors">${caseStudyData.nmims_campus_authors}</div>
-    <div class="cell nmims-schol-authors">${caseStudyData.nmims_school_authors}</div>
-    <div class="cell actions">
-        <a class="view" data-case-id="${caseStudyId}"><i data-case-id="${caseStudyId}" class="fa-solid fa-eye view"></i></a>
-        <a class="edit" data-case-id="${caseStudyId}"><i data-case-id="${caseStudyId}" class="fa fa-edit edit"></i></a>
-        <a class="delete" data-case-id="${caseStudyId}"><i data-case-id="${caseStudyId}" class="fa-solid fa-trash delete"></i></a>
-    </div>`;
-
-// Append the new case study row to the document body (you can adjust this based on where you want to append it)
-document.body.appendChild(newCaseStudy);
+            newCaseStudy.innerHTML = `
+                <div class="cell">${caseStudyId}</div>
+                <div class="cell author-first-name">${caseStudyData.author_fname}</div>
+                <div class="cell author-last-name">${caseStudyData.author_lname}</div>
+                <div class="cell title-of-case-study">${caseStudyData.title_of_case_study}</div>
+                <div class="cell edition">${caseStudyData.edition}</div>
+                <div class="cell volume-number">${caseStudyData.volume_number}</div>
+                <div class="cell publisher-name">${caseStudyData.publisher_name}</div>
+                <div class="cell publication-year">${caseStudyData.publication_year}</div>
+                <div class="cell page-number">${caseStudyData.page_number}</div>
+                <div class="cell url-of-case-study">${caseStudyData.url_of_case_study}</div>
+                <div class="cell number-of-nmims-authors">${caseStudyData.number_of_nmims_authors}</div>
+                <div class="cell nmims-authors">${caseStudyData.nmims_authors}</div>
+                <div class="cell nmims-campus-authors">${caseStudyData.nmims_campus_authors}</div>
+                <div class="cell nmims-schol-authors">${caseStudyData.nmims_school_authors}</div>
+                <div class="cell actions">
+                    <a class="view" data-case-id="${caseStudyId}"><i data-case-id="${caseStudyId}" class="fa-solid fa-eye view"></i></a>
+                    <a class="edit" data-case-id="${caseStudyId}"><i data-case-id="${caseStudyId}" class="fa fa-edit edit"></i></a>
+                    <a class="delete" data-case-id="${caseStudyId}"><i data-case-id="${caseStudyId}" class="fa-solid fa-trash delete"></i></a>
+                </div>`;
 
 
-// Append the new case study row to the document body (you can adjust this based on where you want to append it)
-document.body.appendChild(newCaseStudy);
-
-            caseStudiesDataList.querySelector('tbody').appendChild(newCaseStudy);
+            caseStudiesDataList.appendChild(newCaseStudy);
              $('#case-study-modal').modal('hide');
              alert('data saved successfully');    
 
@@ -497,7 +490,7 @@ document.body.appendChild(newCaseStudy);
     
   })
 
-  caseStudiesDataList.addEventListener('click' , (event) => {
+    caseStudiesDataList.addEventListener('click' , (event) => {
     if(event.target.classList.contains('delete')){
         console.log('clickeddddd');
         const caseStudyRow = event.target.parentElement.parentElement.parentElement;
@@ -535,7 +528,7 @@ document.body.appendChild(newCaseStudy);
         submitBtn.classList.add('d-none');
         updateBtn.classList.remove('d-none');  
 
-        rowToBeUpdated = event.target.closest('tr');
+        rowToBeUpdated = event.target.closest('div');
         console.log('row for updation ==>>' , rowToBeUpdated);
         caseStudyId = event.target.getAttribute('data-case-id');
         console.log('caseStudyId:', caseStudyId);
@@ -580,7 +573,7 @@ document.body.appendChild(newCaseStudy);
 
   })
 
-  updateBtn.addEventListener('click' , async function() {
+    updateBtn.addEventListener('click' , async function() {
     console.log('clikkkeeeddddd to update');
     //now here are acutuall value stored what modification we did for updation
     const upadetdAuthorFname = document.getElementById('first-name').value;
