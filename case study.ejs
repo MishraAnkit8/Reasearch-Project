@@ -471,6 +471,47 @@
         })
 
 
+    });
+
+    caseStudiesDataList.addEventListener('click' , async function(event) {
+        if(event.target.classList.contains('view')){
+            console.log('clikkkkedddddd');
+            caseStudyId = event.target.getAttribute('data-case-id');
+            console.log('caseId for Viewing' , caseStudyId);
+            const viewauthor_first_name = document.getElementById('first-name');
+            const viewauthor_last_name = document.getElementById('last-name');
+            const viewtitle_of_case_study =document.getElementById('title-of-case-study');
+            const viewedition = document.getElementById('edition');
+            const viewvolume_number = document.getElementById('volume-number');
+            const viewpublisher_name =document.getElementById('publisher-name');
+            const viewpublication_year = document.getElementById('publication-year');
+            const viewpage_number = document.getElementById('page-number');
+            const viewurl_of_case_study = document.getElementById('url-of-case-study');
+            const viewnumber_of_nmims_authors = document.getElementById('number-of-nmims-authors');
+            const viewnmims_authors = document.getElementById('nmims-authors');
+            const viewnmims_campus_authors = document.getElementById('nmims-campus-authors');
+            const viewnmims_school_authors = document.getElementById('nmims-school-authors');
+
+            fetch('research/case-study/view' , {
+                method : 'POST',
+                headers : {
+                    'content-type' : 'application/json'
+                },
+                body : JSON.stringify({
+                    caseStudyId : caseStudyId
+                })
+            })
+            .then((result) => {
+                return result.json();
+            })
+            .then((data) => {
+                console.log('data ==>>', data);
+                viewauthor_first_name.innerText = data[0].author_first_name;
+            })
+            .catch((error) => {
+                console.log('ERROR :', error);
+            })
+        }
     })
 </script>
 
