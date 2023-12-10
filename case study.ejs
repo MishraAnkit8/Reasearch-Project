@@ -271,7 +271,7 @@
     </div>
 </div>
 <!-- view Modal Form -->
-<div class="modal fade " id="modal-view" tabindex="-1" role="dialog" aria-labelledby="journal-paper-modal"
+<div class="modal fade " id="case-view-modal" tabindex="-1" role="dialog" aria-labelledby="journal-paper-modal"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg modal-fullscreen p-5" role="document">
         <div class="modal-content">
@@ -477,6 +477,7 @@
         if(event.target.classList.contains('view')){
             console.log('clikkkkedddddd');
             caseStudyId = event.target.getAttribute('data-case-id');
+            $('#case-view-modal').modal('show');
             console.log('caseId for Viewing' , caseStudyId);
             const viewauthor_first_name = document.getElementById('first-name');
             const viewauthor_last_name = document.getElementById('last-name');
@@ -492,7 +493,7 @@
             const viewnmims_campus_authors = document.getElementById('nmims-campus-authors');
             const viewnmims_school_authors = document.getElementById('nmims-school-authors');
 
-            fetch('research/case-study/view' , {
+            fetch('/research/case-study/view' , {
                 method : 'POST',
                 headers : {
                     'content-type' : 'application/json'
@@ -507,6 +508,7 @@
             .then((data) => {
                 console.log('data ==>>', data);
                 viewauthor_first_name.innerText = data[0].author_first_name;
+                
             })
             .catch((error) => {
                 console.log('ERROR :', error);
