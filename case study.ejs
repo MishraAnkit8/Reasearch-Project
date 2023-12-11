@@ -44,7 +44,7 @@
                                     Download </a>
                                 <button type="button" class="btn btn-primary " data-toggle="modal"
                                     data-target="#case-study-modal">
-                                    <i id="case-study" class="fas fa-plus plus"></i></button>
+                                    <i id="modal-form" class="fas fa-plus plus"></i></button>
                                 </button>
                             </div>
                         </div>
@@ -90,7 +90,11 @@
                                 </div>
                                 <% if (Array.isArray(caseStudiesData)) { %>
                                 <% caseStudiesData.forEach(function(caseStudy) { %>
-                                    <div class="row bg-light mb-3 p-2" data-case-id="<%- caseStudy.id %>">
+                                    
+                                    <div class="row bg-light mb-3 p-2" data-case-id="<%- caseStudy.id %>" data-page-number="<%- caseStudy.page_number %>"
+                                        data-url_of_case_study="<%- caseStudy.url_of_case_study %>" data-number_of_nmims_authors="<%- caseStudy.number_of_nmims_authors %>"
+                                        data-nmims-authors="<%- caseStudy.nmims_authors %>" data-nmims_campus_authors="<%- caseStudy.nmims_campus_authors %>"
+                                        data-nmims_school_authors="<%- caseStudy.nmims_school_authors %>">
                                         <div class="col"> <%- caseStudy.id %> </div>
                                         <div class="col author-first-name"> <%- caseStudy.author_first_name %> </div>
                                         <div class="col author-last-name"> <%- caseStudy.author_last_name %> </div>
@@ -181,7 +185,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <div class="form-group col">
                             <label for="firstname" class="form-label  fw-bold">Author's first name</label>
-                            <input type="text" name="author-first-name" id="first-name" class="form-control"
+                            <input type="text" name="author-first-name" id="author-first-name" class="form-control"
                                 placeholder="First name">
                         </div>
                     </div>
@@ -190,7 +194,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <div class="form-group col">
                             <label for="lastname" class="form-label  fw-bold">Author's last name</label>
-                            <input type="text" name="lname" id="last-name" class="form-control" placeholder="Last name">
+                            <input type="text" name="lname" id="author-last-name" class="form-control" placeholder="Last name">
                         </div>
                     </div>
                     <!-- Title of case study -->
@@ -265,7 +269,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="submit-button">Submit</button>
-                <button type="button" class="btn btn-primary " id="update-button">update</button>
+                <button type="button" class="btn btn-primary d-none " id="update-button">update</button>
             </div>
         </div>
     </div>
@@ -290,7 +294,7 @@
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">Author's first name:</h3>
-                                    <b id="first-name"></b>
+                                    <b id="view-first-name"></b>
                                 </div>
                             </div>
             
@@ -298,14 +302,14 @@
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">Author's last name:</h3>
-                                    <b id="last-name"></b>
+                                    <b id="view-last-name"></b>
                                 </div>
                             </div>
                             <!-- Title of case study -->
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">Title of case study:</h3>
-                                    <b id="title-of-case-study"></b>
+                                    <b id="view-title-of-case-study"></b>
                                 </div>
                             </div>
             
@@ -313,14 +317,14 @@
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">Edition:</h3>
-                                    <b id="edition"></b>
+                                    <b id="view-edition"></b>
                                 </div>
                             </div>
                             <!-- Volume number -->
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">Volume Number:</h3>
-                                    <b id="volume-number"></b>
+                                    <b id="view-volume-number"></b>
                                 </div>
                             </div>
             
@@ -328,7 +332,7 @@
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">Publisher Name:</h3>
-                                    <b id="publisher-name"></b>
+                                    <b id="view-publisher-name"></b>
                                 </div>
                             </div>
             
@@ -336,56 +340,56 @@
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">Publication Year:</h3>
-                                    <b id="publication-year"></b>
+                                    <b id="view-publication-year"></b>
                                 </div>
                             </div>
                             <!-- Publication Year -->
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">Publisher Category:</h3>
-                                    <b id="publisher-category"></b>
+                                    <b id="view-publisher-category"></b>
                                 </div>
                             </div>
                             <!-- Publication Year -->
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">Page Number:</h3>
-                                    <b id="page-number"></b>
+                                    <b id="view-page-number"></b>
                                 </div>
                             </div>
                             <!-- Publication Year -->
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">URL of the Case Study:</h3>
-                                    <b id="url-of-case-study"></b>
+                                    <b id="view-url-of-case-study"></b>
                                 </div>
                             </div>
                             <!-- Publication Year -->
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">No. of NMIMS Authors:</h3>
-                                    <b id="no-of-nmims-authors"></b>
+                                    <b id="view-no-of-nmims-authors"></b>
                                 </div>
                             </div>
                             <!-- Publication Year -->
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">Name of NMIMS Authors:</h3>
-                                    <b id="nmims-authors"></b>
+                                    <b id="view-nmims-authors"></b>
                                 </div>
                             </div>
                             <!-- Publication Year -->
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">NMIMS Campus Author:</h3>
-                                    <b id="nmims-campus-author"></b>
+                                    <b id="view-nmims-campus-authors"></b>
                                 </div>
                             </div>
                             <!-- Publication Year -->
                             <div class="col-lg-4 col-md-6  col-sm-12">
                                 <div class="box">
                                     <h3 class="task-sub-title" style="color: #0080ff;">NMIMS School Author:</h3>
-                                    <b id="nmims-school-author"></b>
+                                    <b id="view-nmims-school-authors"></b>
                                 </div>
                             </div>
                         </div>
@@ -400,13 +404,22 @@
 <script>
     const caseStudiesDataList = document.getElementById('case-studies-data-list');
     const submitBtn = document.getElementById('submit-button');
-    let caseStudyId ;
+    const updateBtn = document.getElementById('update-button');
+    const openMadalFormBtn = document.getElementById('modal-form');
+    openMadalFormBtn.addEventListener('click' , async function(event){
+        if(event.target.classList.contains('plus')){
+            // for button visualization
+            submitBtn.classList.remove('d-none');
+            updateBtn.classList.add('d-none');
+        }
+    })
+    let caseStudyId , rowToBeUpdate;
 
     submitBtn.addEventListener('click' , function(){
         console.log('clickeddd');
         const caseStudyData = {};
-        caseStudyData. author_first_name = document.getElementById('first-name').value;
-        caseStudyData.author_last_name = document.getElementById('last-name').value;
+        caseStudyData. author_first_name = document.getElementById('author-first-name').value;
+        caseStudyData.author_last_name = document.getElementById('author-last-name').value;
         caseStudyData.title_of_case_study =document.getElementById('title-of-case-study').value;
         caseStudyData.edition = document.getElementById('edition').value;
         caseStudyData.volume_number = document.getElementById('volume-number').value;
@@ -440,6 +453,12 @@
                 caseStudyId = data.caseStudyId;
                 console.log('caseStudyId', caseStudyId);
                 const newCaseStudy = document.createElement('div');
+                newCaseStudy.setAttribute('data-page-number', caseStudyData.page_number);
+                newCaseStudy.setAttribute('data-url_of_case_study', caseStudyData.url_of_case_study);
+                newCaseStudy.setAttribute('data-number_of_nmims_authors', caseStudyData.number_of_nmims_authors);
+                newCaseStudy.setAttribute('data-nmims-authors', caseStudyData.nmims_authors);
+                newCaseStudy.setAttribute('data-nmims_campus_authors', caseStudyData.nmims_campus_authors);
+                newCaseStudy.setAttribute('data-nmims_school_authors', caseStudyData.nmims_school_authors);
                 newCaseStudy.classList.add('case-study-row', 'flex-container');
                 newCaseStudy.innerHTML = `
                         <div class="cell">${caseStudyId}</div>
@@ -450,17 +469,12 @@
                         <div class="cell volume-number">${caseStudyData.volume_number}</div>
                         <div class="cell publisher-name">${caseStudyData.publisher_name}</div>
                         <div class="cell publication-year">${caseStudyData.publication_year}</div>
-                        <div class="cell page-number">${caseStudyData.page_number}</div>
-                        <div class="cell url-of-case-study">${caseStudyData.url_of_case_study}</div>
-                        <div class="cell number-of-nmims-authors">${caseStudyData.number_of_nmims_authors}</div>
-                        <div class="cell nmims-authors">${caseStudyData.nmims_authors}</div>
-                        <div class="cell nmims-campus-authors">${caseStudyData.nmims_campus_authors}</div>
-                        <div class="cell nmims-schol-authors">${caseStudyData.nmims_school_authors}</div>
                         <div class="cell actions">
                             <a class="view" data-case-id="${caseStudyId}"><i data-case-id="${caseStudyId}" class="fa-solid fa-eye view"></i></a>
                             <a class="edit" data-case-id="${caseStudyId}"><i data-case-id="${caseStudyId}" class="fa fa-edit edit"></i></a>
                             <a class="delete" data-case-id="${caseStudyId}"><i data-case-id="${caseStudyId}" class="fa-solid fa-trash delete"></i></a>
                         </div> `;
+                        
                         caseStudiesDataList.appendChild(newCaseStudy);
                         $('#case-study-modal').modal('hide');
                         alert('data saved successfully');
@@ -475,23 +489,22 @@
 
     caseStudiesDataList.addEventListener('click' , async function(event) {
         if(event.target.classList.contains('view')){
-            console.log('clikkkkedddddd');
             caseStudyId = event.target.getAttribute('data-case-id');
-            $('#case-view-modal').modal('show');
             console.log('caseId for Viewing' , caseStudyId);
-            const viewauthor_first_name = document.getElementById('first-name');
-            const viewauthor_last_name = document.getElementById('last-name');
-            const viewtitle_of_case_study =document.getElementById('title-of-case-study');
-            const viewedition = document.getElementById('edition');
-            const viewvolume_number = document.getElementById('volume-number');
-            const viewpublisher_name =document.getElementById('publisher-name');
-            const viewpublication_year = document.getElementById('publication-year');
-            const viewpage_number = document.getElementById('page-number');
-            const viewurl_of_case_study = document.getElementById('url-of-case-study');
-            const viewnumber_of_nmims_authors = document.getElementById('number-of-nmims-authors');
-            const viewnmims_authors = document.getElementById('nmims-authors');
-            const viewnmims_campus_authors = document.getElementById('nmims-campus-authors');
-            const viewnmims_school_authors = document.getElementById('nmims-school-authors');
+            const viewauthor_first_name = document.getElementById('view-first-name');
+            const viewauthor_last_name = document.getElementById('view-last-name');
+            const viewtitle_of_case_study =document.getElementById('view-title-of-case-study');
+            const viewedition = document.getElementById('view-edition');
+            const viewvolume_number = document.getElementById('view-volume-number');
+            const viewpublisher_name =document.getElementById('view-publisher-name');
+            const viewpublisher_category = document.getElementById('view-publisher-category');
+            const viewpublication_year = document.getElementById('view-publication-year');
+            const viewpage_number = document.getElementById('view-page-number');
+            const viewurl_of_case_study = document.getElementById('view-url-of-case-study');
+            const viewnumber_of_nmims_authors = document.getElementById('view-no-of-nmims-authors');
+            const viewnmims_authors = document.getElementById('view-nmims-authors');
+            const viewnmims_campus_authors = document.getElementById('view-nmims-campus-authors');
+            const viewnmims_school_authors = document.getElementById('view-nmims-school-authors');
 
             fetch('/research/case-study/view' , {
                 method : 'POST',
@@ -508,12 +521,159 @@
             .then((data) => {
                 console.log('data ==>>', data);
                 viewauthor_first_name.innerText = data[0].author_first_name;
+                console.log('first-name' , data[0].author_first_name );
+                viewauthor_last_name.innerText = data[0].author_last_name;
+                viewtitle_of_case_study.innerText = data[0].title_of_case_study;
+                viewedition.innerText = data[0].edition;
+                viewvolume_number.innerText = data[0].volume_number;
+                viewpublisher_name.innerText = data[0].publisher_name;
+                viewpublication_year.innerText = data[0].publication_year;
+                viewpage_number.innerText = data[0].page_number;
+                viewurl_of_case_study.innerText = data[0].url_of_case_study;
+                viewnumber_of_nmims_authors.innerText = data[0].number_of_nmims_authors;
+                viewnmims_authors.innerText = data[0].nmims_authors;
+                viewnmims_campus_authors.innerText = data[0].nmims_campus_authors;
+                viewnmims_school_authors.innerText = data[0].nmims_school_authors;
+                
                 
             })
             .catch((error) => {
                 console.log('ERROR :', error);
             })
+
+            $('#case-view-modal').modal('show');
         }
+
+        // for deleting
+        if(event.target.classList.contains('delete')){
+            console.log('clickkeddd');
+            caseStudyId = event.target.getAttribute('data-case-id');
+            const rowToBeDelete = event.target.parentElement.parentElement.parentElement;
+            console.log('==>>>', rowToBeDelete)
+            console.log('ID', caseStudyId);
+            fetch('/research/case-study/delete' , {
+                method : 'POST',
+                headers : {
+                    'content-type' : 'application/json'
+                },
+                body : JSON.stringify({
+                    caseStudyId : caseStudyId
+                })
+            })
+            .then((result) => {
+                return result.json();
+            })
+            .then((data) => {
+                if(data.status === 'done'){
+                    console.log('data ==>>', data);
+                    rowToBeDelete.remove();
+                    
+                }
+            })
+            .catch((error) => {
+                console.log('ERROR ::', error);
+            })
+        }
+
+        if(event.target.classList.contains('edit')){
+            console.log('clickeddddd');
+            $('#case-study-modal').modal('show');
+    
+            submitBtn.classList.add('d-none');
+            updateBtn.classList.remove('d-none');
+            caseStudyId = event.target.getAttribute('data-case-id');
+            console.log('ID For Updation' , caseStudyId);
+            rowToBeUpdate = event.target.parentElement.parentElement.parentElement;
+            console.log('row to be updeted', rowToBeUpdate);
+            // capturing specific data
+            const page_number =  rowToBeUpdate.getAttribute('data-page-number');
+            const url_of_case_study = rowToBeUpdate.getAttribute('data-url_of_case_study');
+            const number_of_nmims_authors = rowToBeUpdate.getAttribute('data-number_of_nmims_authors');
+            const nmims_authors = rowToBeUpdate.getAttribute('data-nmims-authors');
+            console.log('data-number_of_nmims_authors ==>',nmims_authors);
+            const nmims_campus_authors  = rowToBeUpdate.getAttribute('data-nmims_campus_authors');
+            const nmims_school_authors = rowToBeUpdate.getAttribute('data-nmims_school_authors');
+            console.log('page Number ==>>', page_number );
+            const author_first_name = rowToBeUpdate.querySelector('.author-first-name');
+            console.log('author_first_name ==>', author_first_name);
+            const author_last_name = rowToBeUpdate.querySelector('.author-last-name');
+            const title_of_case_study = rowToBeUpdate.querySelector('.title-of-case-study');
+            const edition = rowToBeUpdate.querySelector('.edition');
+            const volume_number = rowToBeUpdate.querySelector('.volume-number');
+            const publisher_name = rowToBeUpdate.querySelector('.publisher-name');
+            const publication_year = rowToBeUpdate.querySelector('.publication-year');
+
+            // updating actual value 
+            document.getElementById('author-first-name').value = author_first_name.textContent;
+            console.log('===>>>>', author_first_name.textContent );
+            document.getElementById('author-last-name').value = author_last_name.textContent;
+            document.getElementById('title-of-case-study').value = title_of_case_study.textContent;
+            document.getElementById('edition').value = edition.textContent;
+            document.getElementById('volume-number').value = volume_number.textContent;
+            document.getElementById('publisher-name').value = publisher_name.textContent;
+            document.getElementById('publication-year').value = publication_year.textContent;
+            document.getElementById('page-number').value = page_number;
+            document.getElementById('url-of-case-study').value = url_of_case_study;
+            document.getElementById('number-of-nmims-authors').value = number_of_nmims_authors;
+            document.getElementById('nmims-authors').value = nmims_authors;
+            document.getElementById('nmims-campus-authors').value = nmims_campus_authors;
+            document.getElementById('nmims-school-authors').value = nmims_school_authors ;
+            console.log('...>>>',page_number);
+
+        }
+    })
+
+    updateBtn.addEventListener('click' , function(){
+        console.log('data is updated');
+        const updatedName = document.getElementById('author-first-name').value;
+        const updatedPage = document.getElementById('page-number').value;
+        const updateLastName = document.getElementById('author-last-name').value;
+        const updatedEdition = document.getElementById('edition').value;
+        const updatedVolume = document.getElementById('volume-number').value;
+        const updatedPublisher = document.getElementById('publisher-name').value;
+        const updatedPublicationYear = document.getElementById('publication-year').value;
+        const updatedUrl = document.getElementById('url-of-case-study').value;
+        const updatedNmimsAuthors = document.getElementById('nmims-authors').value;
+        const updatedNumberOfNmimsAuthor = document.getElementById('number-of-nmims-authors').value;
+        const updatedCampus = document.getElementById('nmims-campus-authors').value;
+        const updatedschool = document.getElementById('nmims-school-authors').value;
+        const updatedtitle = document.getElementById('title-of-case-study').value;
+        console.log(' updatedPageNumber ===>>', updatedPage);
+
+        const updatedCaseStudies = {};
+        updatedCaseStudies.caseStudyId = caseStudyId;
+        updatedCaseStudies.author_first_name = updatedName;
+        updatedCaseStudies.author_last_name = updateLastName;
+        updatedCaseStudies.page_number = updatedPage;
+        updatedCaseStudies.edition = updatedEdition;
+        updatedCaseStudies.volume_number = updatedVolume;
+        updatedCaseStudies.publication_year =updatedPublicationYear;
+        updatedCaseStudies.publisher_name = updatedPublisher;
+        updatedCaseStudies.url_of_case_study = updatedUrl;
+        updatedCaseStudies.nmims_authors = updatedNmimsAuthors;
+        updatedCaseStudies.number_of_nmims_authors = updatedNumberOfNmimsAuthor;
+        updatedCaseStudies.nmims_campus_authors = updatedCampus;
+        updatedCaseStudies.nmims_school_authors = updatedschool;
+        updatedCaseStudies.title_of_case_study = updatedtitle;
+
+        fetch('/research/case-study/update' , {
+            method : 'POST',
+            headers : {
+                'content-type' : 'application/json'
+            },
+            body : JSON.stringify(updatedCaseStudies)
+        })
+        .then((result) => {
+            return result.json();
+        })
+        .then((data) => {
+            console.log('data ===>>>' , data);
+            if(data.status === 'done'){
+                console.log('caseID >>>', caseStudyId);
+                rowToBeUpdate.querySelector('.author-first-name').innerText = updatedCaseStudies.author_first_name;
+                console.log('first Name ===>', updatedCaseStudies.author_first_name);
+            }
+        })
     })
 </script>
 
