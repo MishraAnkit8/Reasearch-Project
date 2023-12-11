@@ -677,7 +677,9 @@
                 rowToBeUpdate.querySelector('.publication-year').innerText = updatedCaseStudies.publication_year;
             
                 console.log('first Name ===>', updatedCaseStudies.author_first_name);
-            }
+
+                $('#case-study-modal').modal('hide');
+                alert('data Updated SuccessFully');            }
         })
     })
 </script>
