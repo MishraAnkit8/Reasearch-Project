@@ -671,7 +671,11 @@
             if(data.status === 'done'){
                 console.log('caseID >>>', caseStudyId);
                 rowToBeUpdate.querySelector('.author-first-name').innerText = updatedCaseStudies.author_first_name;
-                rowToBeUpdate.querySelector('.page-number').innerText = updatedCaseStudies.page_number;
+                rowToBeUpdate.querySelector('.author-last-name').innerText = updatedCaseStudies.author_last_name;
+                rowToBeUpdate.querySelector('.edition').innerText = updatedCaseStudies.edition;
+                rowToBeUpdate.querySelector('.volume-number').innerText = updatedCaseStudies.volume_number;
+                rowToBeUpdate.querySelector('.publication-year').innerText = updatedCaseStudies.publication_year;
+            
                 console.log('first Name ===>', updatedCaseStudies.author_first_name);
             }
         })
