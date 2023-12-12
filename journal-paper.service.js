@@ -38,13 +38,13 @@ module.exports.updateJournalPaper = async ({taskId, updateJournalDetails}) => {
     console.log('ROW count ', updateJournalData.rowCount);
     if(updateJournalData.rowCount == 1){
         return {
-            'status' : 'done' ,
+            status : 'done' ,
             massage : 'data updated successfully'
         };
     }
     else{
         return {
-            'status' : 'failed' ,
+            status : 'failed' ,
             massage : 'data is not updating'
         }
     };
