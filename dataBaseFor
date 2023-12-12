@@ -1,0 +1,33 @@
+for journal-paper
+  CREATE TABLE research_journal_paper (
+    id SERIAL PRIMARY KEY,
+    year INTEGER,
+    school VARCHAR(255),
+    campus VARCHAR(255),
+    policy_cadre VARCHAR(255),
+    research_type VARCHAR(255), 
+    all_authors VARCHAR(255),
+    total_authors INTEGER,
+    nmims_authors VARCHAR(255),
+    nmims_authors_count INTEGER,
+    count_other_faculty INTEGER,
+    title_of_paper VARCHAR(255),
+    journal_name VARCHAR(255),
+    publisher VARCHAR(255),
+    volume VARCHAR(255),
+    iss VARCHAR(255),
+    pages VARCHAR(255),
+    issn_no VARCHAR(255),
+    date_of_publishing DATE,
+    impact_factor VARCHAR(255),
+    scs_cite_score INTEGER,
+    scs_indexed VARCHAR(255),
+    wos_indexed VARCHAR(255),
+    gs_indexed VARCHAR(255),
+    abdc_indexed VARCHAR(255),
+    ugc_indexed VARCHAR(255),
+    web_link VARCHAR(255),
+    uid VARCHAR(255)
+);
+
+
