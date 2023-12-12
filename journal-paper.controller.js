@@ -14,13 +14,13 @@ module.exports.createJournalPaper = async (req, res, next) => {
     if(journalPaperData && journalPaperData.rows[0].id) {
         console.log('ID' , journalPaperData.rows[0].id);
         res.status(200).send({
-            'status' : 'done',
+            status : 'done',
             taskId : journalPaperData.rows[0].id
         });
     }
     else {
         res.status(500).send({
-            'status' : 'failed',
+            status : 'failed',
             'massage' : 'failed to insert new row'
         });
     };
@@ -57,13 +57,13 @@ module.exports.updateJournalPaper = async (req, res, next) => {
     console.log('id for updation', updatePaper);
     if(updatePaper.status === 'done'){
         res.status(200).send({
-            'status' : 'done',
+            status : 'done',
             massage : updatePaper.massage
         });
     }
     else{
         res.status(500).send({
-            'status'  : 'failed',
+            status  : 'failed',
             massage : updatePaper.massage
         });
     };
@@ -74,7 +74,7 @@ module.exports.viewJournalPaper = async(req, res, next) => {
     console.log('taskID for View ', taskId);
     console.log('viewDataDetails ==>', req.body);
     const viewJournalDetails = await journalPaperService.viewJournalPaper({taskId});
-    console.log('data=>>', viewJournalDetails)
+    console.log(' view data=>>', viewJournalDetails)
     if(viewJournalDetails){
         res.status(200).send(viewJournalDetails)
     }
