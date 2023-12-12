@@ -647,7 +647,7 @@
                     newRow.setAttribute('data-uid' , journalDetails.uid);
                     newRow.setAttribute('data-date-of-publishing' , journalDetails.date_of_publishing);
                     newRow.setAttribute('data-title-of-paper' , journalDetails.title_of_paper);
-                    newRow.setAttribute(' data-research-type' , journalDetails.research_type);
+                    newRow.setAttribute('data-research-type' , journalDetails.research_type);
                     newRow.setAttribute('data-nmims-author-count' , journalDetails.nmims_authors_count);
                     newRow.innerHTML = `
                             <td >${taskId}</td>
@@ -728,6 +728,20 @@
             const journal_name = rowToBeUpdated.querySelector('.journal-name');
             const policy_cadre = rowToBeUpdated.querySelector('.policy-cadre');
             const publisher = rowToBeUpdated.querySelector('.publisher');
+            const count_other_faculty = rowToBeUpdated.getAttribute('data-count-other-faculty');
+            const title_of_paper = rowToBeUpdated.getAttribute('data-title-of-paper');
+            const volume = rowToBeUpdated.getAttribute('data-volume');
+            const iss = rowToBeUpdated.getAttribute('data-iss');
+            const pages = rowToBeUpdated.getAttribute('data-pages');
+            const issn_no = rowToBeUpdated.getAttribute('data-issn-no');
+            const date_of_publishing = rowToBeUpdated.getAttribute('data-date-of-publishing');
+            const impact_factor = rowToBeUpdated.getAttribute('data-impact-factor');
+            const scs_cite_score = rowToBeUpdated.getAttribute('data-scs-cite-score');
+            const wos_indexed = rowToBeUpdated.getAttribute('data-wos-indexed');
+            
+
+
+            console.log('>>>>', title_of_paper);
             // updating value with actuall value
             document.getElementById('year').value = year.textContent;
             document.getElementById('school').value = school.textContent;
