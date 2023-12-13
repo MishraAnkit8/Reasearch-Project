@@ -285,7 +285,7 @@
                     <!-- GS Indexed -->
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <label for="gsIndex" class="form-label fw-bold">GS Indexed</label>
-                        <input type="text" name="gs-indexed" id="gs-index" class="form-control"
+                        <input type="text" name="gs-indexed" id="gs-indexed" class="form-control"
                             placeholder="GS Indexed">
                     </div>
 
@@ -491,7 +491,7 @@
                         <div class="col-lg-4 col-md-6  col-sm-12 p-3">
                             <div class="box">
                                 <div class="task-sub-title div" style="color: #0080ff;">GS Index:</div>
-                                <label id="view-gs-index"></label>
+                                <label id="view-gs-indexed"></label>
                             </div>
                         </div>
                            <!--abdc-indexed-->
@@ -596,7 +596,7 @@
         journalDetails.impact_factor = document.getElementById('impact-factor').value;
         journalDetails.scs_indexed = document.getElementById('scs-indexed').value;
         journalDetails.wos_indexed = document.getElementById('wos-indexed').value;
-        journalDetails.gs_indexed = document.getElementById('gs-index').value;
+        journalDetails.gs_indexed = document.getElementById('gs-indexed').value;
         journalDetails.abdc_indexed = document.getElementById('abdc-indexed').value;
         journalDetails.ugc_indexed = document.getElementById('ugc-indexed').value;
         journalDetails.web_link = document.getElementById('web-link').value;
@@ -630,26 +630,26 @@
                     taskId = data.taskId;
                     console.log('taskId ==>', taskId);
                     //insert new row to the journal_papers table 
-                    const newRow = document.createElement('tr');
-                    newRow.setAttribute('data-count-other-faculty', journalDetails.count_other_faculty );
-                    newRow.setAttribute('data-volume' , journalDetails.volume);
-                    newRow.setAttribute('data-iss' , journalDetails.iss);
-                    newRow.setAttribute('data-pages' , journalDetails.pages);
-                    newRow.setAttribute('data-issn-no' , journalDetails.issn_no);
-                    newRow.setAttribute('data-scs-cite-score' , journalDetails.scs_cite_score);
-                    newRow.setAttribute('data-impact-factor' , journalDetails.impact_factor);
-                    newRow.setAttribute('data-scs-indexed' , journalDetails.scs_indexed);
-                    newRow.setAttribute('data-wos-indexed' , journalDetails.wos_indexed);
-                    newRow.setAttribute('data-gs-indexed' , journalDetails.gs_indexed);
-                    newRow.setAttribute('data-abdc-indexed' , journalDetails.abdc_indexed);
-                    newRow.setAttribute('data-ugc-indexed' , journalDetails.ugc_indexed);
-                    newRow.setAttribute('data-web-link' , journalDetails.web_link);
-                    newRow.setAttribute('data-uid' , journalDetails.uid);
-                    newRow.setAttribute('data-date-of-publishing' , journalDetails.date_of_publishing);
-                    newRow.setAttribute('data-title-of-paper' , journalDetails.title_of_paper);
-                    newRow.setAttribute('data-research-type' , journalDetails.research_type);
-                    newRow.setAttribute('data-nmims-author-count' , journalDetails.nmims_authors_count);
-                    newRow.innerHTML = `
+                    const rowToBeUpdated = document.createElement('tr');
+                    rowToBeUpdated.setAttribute('data-count-other-faculty', journalDetails.count_other_faculty );
+                    rowToBeUpdated.setAttribute('data-volume' , journalDetails.volume);
+                    rowToBeUpdated.setAttribute('data-iss' , journalDetails.iss);
+                    rowToBeUpdated.setAttribute('data-pages' , journalDetails.pages);
+                    rowToBeUpdated.setAttribute('data-issn-no' , journalDetails.issn_no);
+                    rowToBeUpdated.setAttribute('data-scs-cite-score' , journalDetails.scs_cite_score);
+                    rowToBeUpdated.setAttribute('data-impact-factor' , journalDetails.impact_factor);
+                    rowToBeUpdated.setAttribute('data-scs-indexed' , journalDetails.scs_indexed);
+                    rowToBeUpdated.setAttribute('data-wos-indexed' , journalDetails.wos_indexed);
+                    rowToBeUpdated.setAttribute('data-gs-indexed' , journalDetails.gs_indexed);
+                    rowToBeUpdated.setAttribute('data-abdc-indexed' , journalDetails.abdc_indexed);
+                    rowToBeUpdated.setAttribute('data-ugc-indexed' , journalDetails.ugc_indexed);
+                    rowToBeUpdated.setAttribute('data-web-link' , journalDetails.web_link);
+                    rowToBeUpdated.setAttribute('data-uid' , journalDetails.uid);
+                    rowToBeUpdated.setAttribute('data-date-of-publishing' , journalDetails.date_of_publishing);
+                    rowToBeUpdated.setAttribute('data-title-of-paper' , journalDetails.title_of_paper);
+                    rowToBeUpdated.setAttribute('data-research-type' , journalDetails.research_type);
+                    rowToBeUpdated.setAttribute('data-nmims-author-count' , journalDetails.nmims_authors_count);
+                    rowToBeUpdated.innerHTML = `
                             <td >${taskId}</td>
                             <td class="year">${journalDetails.year}</td>
                             <td class="school">${journalDetails.school}</td>
@@ -665,7 +665,7 @@
                                 <a class="edit"  data-task-id="${taskId}"><i  data-task-id="${taskId}" class="fa fa-edit edit"></i></a>
                                 <a class="delete" data-task-id="${taskId}"><i  data-task-id="${taskId}" class="fa-solid fa-trash delete"></i></a>
                             </td>  ` ;
-                    journalTable.querySelector('tbody').appendChild(newRow)
+                    journalTable.querySelector('tbody').appendChild(rowToBeUpdated)
                     $('#journal-paper-modal').modal('hide');
                     alert('data saved successfully');
                 }
@@ -738,9 +738,13 @@
             const impact_factor = rowToBeUpdated.getAttribute('data-impact-factor');
             const scs_cite_score = rowToBeUpdated.getAttribute('data-scs-cite-score');
             const wos_indexed = rowToBeUpdated.getAttribute('data-wos-indexed');
-            
-
-
+            const gs_indexed = rowToBeUpdated.getAttribute('data-gs-indexed');
+            const abdc_indexed = rowToBeUpdated.getAttribute('data-abdc-indexed');
+            const ugc_indexed = rowToBeUpdated.getAttribute('data-ugc-indexed');
+            const web_link = rowToBeUpdated.getAttribute('data-web-link');
+            const uid = rowToBeUpdated.getAttribute('data-uid');
+            const research_type = rowToBeUpdated.getAttribute('data-research-type');
+            const nmims_authors_count = rowToBeUpdated.getAttribute('data-nmims-authors-count');
             console.log('>>>>', title_of_paper);
             // updating value with actuall value
             document.getElementById('year').value = year.textContent;
@@ -752,6 +756,24 @@
             document.getElementById('journal-name').value = journal_name.textContent;
             document.getElementById('total-authors').value = total_authors.textContent;
             document.getElementById('policy-cadre').value = policy_cadre.textContent;
+            document.getElementById('count-other-faculty').value = count_other_faculty;
+            document.getElementById('title-of-paper').value = title_of_paper;
+            document.getElementById('volume').value = volume;
+            document.getElementById('iss').value = iss;
+            document.getElementById('pages').value = pages;
+            document.getElementById('issn-no').value = issn_no;
+            document.getElementById('date-of-publishing').value = date_of_publishing;
+            document.getElementById('impact-factor').value = impact_factor;
+            document.getElementById('scs-cite-score').value = scs_cite_score;
+            document.getElementById('wos-indexed').value = wos_indexed;
+            document.getElementById('gs-indexed').value = gs_indexed;
+            document.getElementById('abdc-indexed').value = abdc_indexed;
+            document.getElementById('ugc-indexed').value = ugc_indexed;
+            document.getElementById('web-link').value = web_link;
+            document.getElementById('uid').value = uid;
+            document.getElementById('research-type').value = research_type;
+            document.getElementById('nmims-authors-count').value = nmims_authors_count;
+            console.log('uid ==>>' , uid);
         }
 
         // for viewing record of journal paper
@@ -778,7 +800,7 @@
             const viewImpactFactor = document.getElementById('view-impact-factor');
             const viewScsIndexed = document.getElementById('view-scs-indexed');
             const viewWosIndexed = document.getElementById('view-wos-indexed');
-            const viewGsIndexed = document.getElementById('view-gs-index');
+            const viewGsIndexed = document.getElementById('view-gs-indexed');
             const viewUgcIndexed = document.getElementById('view-ugc-indexed');
             const viewDateOfPublishing = document.getElementById('view-date-of-publishing');
             const viewUid = document.getElementById('view-uid');
@@ -786,8 +808,6 @@
             const viewTitle = document.getElementById('view-title-of-paper');
             const viewRsearch = document.getElementById('view-research-type');
             const viewNmimsAuthorsCount = document.getElementById('view-nmims-authors-count');
-
-
 
             fetch('/research/journal-paper/view' , {
                 method : 'POST',
@@ -853,6 +873,23 @@
         const updatedTotal_authors = document.getElementById('total-authors').value;
         const updatedNmims_authors = document.getElementById('nmims-authors').value;
         const updatedJournal_name = document.getElementById('journal-name').value;
+        const updatedCount_other_faculty = document.getElementById('count-other-faculty').value;
+        const updatedTitle_of_paper = document.getElementById('title-of-paper').value ;
+        const updatedVolume = document.getElementById('volume').value;
+        const updatedIss = document.getElementById('iss').value;
+        const updatedPages = document.getElementById('pages').value;
+        const updatedIssn_no = document.getElementById('issn-no').value;
+        const updatedDate_of_publishing =  document.getElementById('date-of-publishing').value ;
+        const updatedImpact_factor = document.getElementById('impact-factor').value;
+        const updatedScs_cite_score = document.getElementById('scs-cite-score').value;
+        const updatedWos_indexed = document.getElementById('wos-indexed').value;
+        const updatedGs_indexed = document.getElementById('gs-indexed').value;
+        const updatedAbdc_indexed = document.getElementById('abdc-indexed').value;
+        const updateduGc_indexed  = document.getElementById('ugc-indexed').value;
+        const updatedWeb_link = document.getElementById('web-link').value;
+        const updatedUid = document.getElementById('uid').value;
+        const updatedResearch_type = document.getElementById('research-type').value;
+        const updatedNmims_authors_count = document.getElementById('nmims-authors-count').value;
 
         
         
@@ -866,6 +903,24 @@
         updatedJournalPaperDetails.total_authors = updatedTotal_authors
         updatedJournalPaperDetails.nmims_authors = updatedNmims_authors
         updatedJournalPaperDetails.journal_name = updatedJournal_name
+        updatedJournalPaperDetails.count_other_faculty = updatedCount_other_faculty;
+        updatedJournalPaperDetails.title_of_paper = updatedTitle_of_paper;
+        updatedJournalPaperDetails.volume = updatedVolume;
+        updatedJournalPaperDetails.iss = updatedIss;
+        updatedJournalPaperDetails.pages = updatedPages;
+        updatedJournalPaperDetails.issn_no = updatedIssn_no;
+        updatedJournalPaperDetails.date_of_publishing = updatedDate_of_publishing;
+        updatedJournalPaperDetails.impact_factor = updatedImpact_factor;
+        updatedJournalPaperDetails.scs_cite_score = updatedScs_cite_score;
+        updatedJournalPaperDetails.wos_indexed = updatedWos_indexed;
+        updatedJournalPaperDetails.gs_indexed = updatedGs_indexed;
+        updatedJournalPaperDetails.abdc_indexed = updatedAbdc_indexed;
+        updatedJournalPaperDetails.ugc_indexed = updateduGc_indexed;
+        updatedJournalPaperDetails.web_link = updatedWeb_link;
+        updatedJournalPaperDetails.uid = updatedUid;
+        updatedJournalPaperDetails.research_type = updatedResearch_type;
+        updatedJournalPaperDetails.nmims_authors_count = updatedNmims_authors_count;
+
         
   
         // sending  updated data to database by fetch api for update the value in db
@@ -900,8 +955,25 @@
                     rowToBeUpdated.querySelector('.nmims-authors').innerText = updatedJournalPaperDetails.nmims_authors;
                     rowToBeUpdated.querySelector('.journal-name').innerText = updatedJournalPaperDetails.journal_name;
                     rowToBeUpdated.querySelector('.policy-cadre').innerText = updatedJournalPaperDetails.policy_cadre;
-                    rowToBeUpdated.querySelector('.publisher').innerText = updatedJournalPaperDetails.publisher
-                    
+                    rowToBeUpdated.querySelector('.publisher').innerText = updatedJournalPaperDetails.publisher;
+                    rowToBeUpdated.setAttribute('data-count-other-faculty', updatedCount_other_faculty );
+                    rowToBeUpdated.setAttribute('data-volume' , updatedVolume);
+                    rowToBeUpdated.setAttribute('data-iss' , updatedIss);
+                    rowToBeUpdated.setAttribute('data-pages' , updatedPages);
+                    rowToBeUpdated.setAttribute('data-issn-no' , updatedIssn_no);
+                    rowToBeUpdated.setAttribute('data-scs-cite-score' , updatedScs_cite_score);
+                    rowToBeUpdated.setAttribute('data-impact-factor' , updatedImpact_factor);
+                    // rowToBeUpdated.setAttribute('data-scs-indexed' , );
+                    rowToBeUpdated.setAttribute('data-wos-indexed' , updatedWos_indexed);
+                    rowToBeUpdated.setAttribute('data-gs-indexed' , updatedGs_indexed);
+                    rowToBeUpdated.setAttribute('data-abdc-indexed' , updatedAbdc_indexed);
+                    rowToBeUpdated.setAttribute('data-ugc-indexed' , updateduGc_indexed);
+                    rowToBeUpdated.setAttribute('data-web-link' , updatedWeb_link);
+                    rowToBeUpdated.setAttribute('data-uid' , updatedUid);
+                    rowToBeUpdated.setAttribute('data-date-of-publishing' , updatedDate_of_publishing);
+                    rowToBeUpdated.setAttribute('data-title-of-paper' , updatedTitle_of_paper);
+                    rowToBeUpdated.setAttribute('data-research-type' , updatedResearch_type);
+                    rowToBeUpdated.setAttribute('data-nmims-author-count' , updatedNmims_authors_count);
                 }
 
                 $('#journal-paper-modal').modal('hide');
