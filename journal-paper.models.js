@@ -5,53 +5,76 @@ const moment = require('moment');
 const autoDbR = dbPoolManager.get('autoDbR', autoriders_read_db);
 const autoDbW = dbPoolManager.get('autoDbW', autoriders_write_db);
 
-module.exports.fetchCaseStudy = async() =>{
-    const sql = {
-        text : `SELECT * FROM case_studies  ORDER BY id`,
+// for fetching journal paper data 
+module.exports.fetchJournalPaper = () => {
+    let sql = {
+        text : 'SELECT * FROM journal_papers  ORDER BY id',
 
-    }
+    };
     return autoDbR.query(sql);
 };
 
-module.exports.insertDataIntoCaseStudies = ({caseStudyData}) => {
-    const {author_first_name, author_last_name, title_of_case_study, edition, volume_number, publisher_name, publication_year , page_number , url_of_case_study ,
-        number_of_nmims_authors , nmims_authors , nmims_campus_authors , nmims_school_authors } = caseStudyData ;
+// for inserting journal paper  data
+module.exports.createJournalPaper = ({journalDetails}) => {
+    const { year ,school,campus , policy_cadre ,research_type ,  all_authors ,
+            total_authors, nmims_authors ,nmims_authors_count, count_other_faculty,  title_of_paper,  journal_name , publisher, 
+            volume,  iss, pages, issn_no, date_of_publishing, impact_factor, scs_cite_score,  scs_indexed , wos_indexed, gs_indexed, abdc_indexed, 
+            ugc_indexed, web_link, uid  } = journalDetails ;
+
     let sql = {
-        text : `INSERT INTO case_studies (author_first_name, author_last_name, title_of_case_study, edition, volume_number, publisher_name, publication_year , page_number , url_of_case_study ,
-                number_of_nmims_authors , nmims_authors , nmims_campus_authors , nmims_school_authors) 
-                VALUES ($1, $2 , $3 ,$4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING id` ,
-        values : [author_first_name, author_last_name, title_of_case_study, edition, volume_number, publisher_name, publication_year , page_number , url_of_case_study ,
-                 number_of_nmims_authors , nmims_authors , nmims_campus_authors , nmims_school_authors]
-    }
+        text : `INSERT INTO journal_papers ( year, school, campus, policy_cadre, publisher,  all_authors, total_authors, nmims_authors, journal_name,
+                count_other_faculty,  volume ,iss, pages, issn_no, scs_cite_score , impact_factor, scs_indexed, wos_indexed , 
+                gs_indexed, abdc_indexed , ugc_indexed, web_link ,uid,   date_of_publishing, title_of_paper, research_type, nmims_authors_count )  
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27) RETURNING id ` ,
+        values : [year ,school,campus , policy_cadre ,research_type ,  all_authors ,
+                total_authors, nmims_authors ,nmims_authors_count, count_other_faculty,  title_of_paper,  journal_name , publisher, 
+                volume,  iss, pages, issn_no, date_of_publishing, impact_factor, scs_cite_score,  scs_indexed , wos_indexed, gs_indexed, abdc_indexed, 
+                ugc_indexed, web_link, uid]
+    };
+    
     return autoDbW.query(sql);
 }
 
-module.exports.deleteCaseStudies = ({caseStudyId}) => {
+// for deleting journal paper  data 
+module.exports.deleteJournalPaper =  async({taskId}) => {
     let sql = {
-        text : `DELETE FROM case_studies WHERE id =$1` ,
-        values : [caseStudyId]
-    }
-    return autoDbW.query(sql);
-}
-
-module.exports.viewCaseStudyData = async (caseStudyId) => {
-    let sql = {
-        text : `  SELECT * FROM case_studies WHERE id = $1 `,
-        values : [caseStudyId]
-    }
-    return autoDbR.query(sql)
+        text : `DELETE FROM journal_papers WHERE id = $1 `,
+        values : [taskId]
+    };
+    return autoDbR.query(sql);
 
 }
 
-module.exports.updateCaseStudies = async ({caseStudyId , updatedCaseStudies}) => {
-    const {author_first_name, author_last_name, title_of_case_study, edition, volume_number, publisher_name, publication_year , page_number , url_of_case_study ,number_of_nmims_authors , nmims_authors , nmims_campus_authors , nmims_school_authors} = updatedCaseStudies;
+// for updating 
+module.exports.updateJournalPaperData = async ({taskId , updateJournalDetails}) => {
+    const {  year ,school,campus , policy_cadre  , all_authors , total_authors, nmims_authors, journal_name, publisher, 
+            research_type , nmims_authors_count, count_other_faculty,  title_of_paper,
+            volume,  iss, pages, issn_no, date_of_publishing, impact_factor, scs_cite_score,  scs_indexed , wos_indexed, gs_indexed, abdc_indexed, 
+            ugc_indexed, web_link, uid} = updateJournalDetails;
     let sql = {
-        text : ` UPDATE case_studies SET 
-                author_first_name = $2, author_last_name = $3, title_of_case_study = $4, edition = $5, volume_number = $6, publisher_name = $7,
-                publication_year = $8,   page_number  = $9,  url_of_case_study = $10, number_of_nmims_authors = $11, nmims_authors = $12, nmims_campus_authors = $13, nmims_school_authors = $14  
-                WHERE id = $1 ` ,
-        values : [caseStudyId , author_first_name, author_last_name, title_of_case_study, edition, volume_number, publisher_name,               publication_year , page_number , url_of_case_study ,number_of_nmims_authors , nmims_authors , nmims_campus_authors , nmims_school_authors]
-
-    }
+         text : ` UPDATE journal_papers 
+                SET year = $2, school = $3, campus = $4, policy_cadre = $5, all_authors = $6,
+                total_authors = $7, nmims_authors = $8, journal_name = $9, publisher = $10, research_type = $11,
+                nmims_authors_count = $12, count_other_faculty = $13, title_of_paper = $14, volume = $15, iss = $16,
+                pages = $17, issn_no = $18, date_of_publishing = $19, impact_factor =  $20, scs_cite_score = $21, 
+                scs_indexed = $22, wos_indexed = $23, gs_indexed = $24, abdc_indexed = $25,
+                ugc_indexed = $26, web_link = $27, uid = $28
+                WHERE id = $1`,
+        values : [taskId, year ,school,campus , policy_cadre  , all_authors , total_authors, nmims_authors, journal_name, publisher, 
+                research_type , nmims_authors_count, count_other_faculty,  title_of_paper,
+                volume,  iss, pages, issn_no, date_of_publishing, impact_factor, scs_cite_score,  scs_indexed , wos_indexed, gs_indexed, abdc_indexed, 
+                ugc_indexed, web_link, uid]
+    };
     return autoDbW.query(sql);
+ 
+};
+
+// for viewing 
+
+module.exports.viewJournalPaperData = async ({taskId}) => {
+    const sql = {
+        text : `SELECT * FROM journal_papers WHERE id =$1  `,
+        values : [taskId]
+    }
+    return autoDbR.query(sql);
 }
