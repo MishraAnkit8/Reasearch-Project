@@ -31,3 +31,42 @@ for journal-paper
 );
 
 
+for patent-submission
+select * from patent_submissions;
+
+create table patent_submissions(
+	id serial primary key,
+	type_of_invention varchar(255),
+	title_of_invention varchar(255),
+	patent_stage varchar(255),
+	achive_sdg varchar(3) CHECK(achive_sdg in( 'yes' , 'no')),
+	application_no integer,
+	date integer,
+	is_presenter varchar(3) check(is_presenter in('yes' , 'no')),
+	myfile varchar(255)
+
+	
+	
+);
+
+insert into patent_submissions(
+	type_of_invention ,
+	title_of_invention,
+	patent_stage,
+	achive_sdg,
+	application_no,
+	date,
+	is_presenter,
+)
+values(
+	'Algorithem',
+	'Coding',
+	'completed',
+	'no',
+	123,
+	2023,
+	'yes'
+)
+drop table patent_submissions;
+
+
