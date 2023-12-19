@@ -65,6 +65,7 @@
                         <th>Date</th>
                         <th>Are you the Presenter</th>
                         <th>Are you achieve SDG ?</th>
+                        <th>upload documents</th>
                         <th>Action</th>
                     </thead>
                     <% patentList.forEach(function(patent) {%>
@@ -77,6 +78,7 @@
                             <td class="date"><%- patent.date %></td>
                             <td class="is-presenter"><%- patent.is_presenter %></td>
                             <td class="achive-sdg"><%- patent.achive_sdg %></td>
+                            <td class="uplaod-form"><%- patent.myfile %></td>
                             <td class="cell ">
                                 <a class="view" data-patent-id="<%- patent.id %>"><i class="fa-solid fa-eye view"
                                     data-patent-id="<%- patent.id %>"></i></a>
@@ -235,11 +237,11 @@
                     <!-- Upload Supporting Documents-->
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
                         <label for="" class="form-label fw-bold mb-3">Upload Data </h5>
-                        <form id="docUploadForm" class="upload-form" method="POST" enctype="multipart/form-data">
+                        <div id="docUploadForm" class="upload-form" >
                             <div class="form-group">
                                 <input type="file" name="myfile" class="form-control" />
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -256,8 +258,8 @@
     const patenetSubMissionList = document.getElementById('patent-submisson-list');
     let patentId
     const insertPatentforms = async (url) => {
-        const form = document.getElementById('docUploadForm');
-        const fileInput = form.querySelector('input[type="file"]');
+        const uploadDocument = document.getElementById('docUploadForm');
+        const fileInput = uploadDocument.querySelector('input[type="file"]');
         
         const patentData = new FormData();
         patentData.append('myfile', fileInput.files[0]);
@@ -303,6 +305,7 @@
                             <td class="date">${data.patentData.date}</td>
                             <td class="is-presenter">${data.patentData.is_presenter}</td>
                             <td class="achive-sdg">${data.patentData.achive_sdg}</td>
+                            <td class="form-upload">${data.filename}</td>
                             <td class="cell ">
                                 <a class="view" data-patent-id="${patentId}"><i class="fa-solid fa-eye view"
                                     data-patent-id="${patentId}"></i></a>
