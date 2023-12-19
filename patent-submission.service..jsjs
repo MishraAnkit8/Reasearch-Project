@@ -6,9 +6,10 @@ module.exports.fetchPatentForm = async() => {
     return patentSubmissionForm.rows;
 }
 
-module.exports.insertPatentFormData = async(body) => {
+module.exports.insertPatentFormData = async(body , file) => {
     console.log('patentData in service', body);
-    const insertPatentData = await patentFormsModels.insertPatentData(body);
+    console.log('file name in service ==>>', file.filename);
+    const insertPatentData = await patentFormsModels.insertPatentData(body, file);
     console.log('insert Id ', insertPatentData.rows[0])
     return insertPatentData;
 }
