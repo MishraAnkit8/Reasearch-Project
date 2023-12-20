@@ -31,9 +31,10 @@ module.exports.renderPatentSubMissionAndGrant = async(req, res, next) =>{
 
 module.exports.insertPatentsubmission = async(req, res, next) => {
         console.log('patentData in Controller', req.body);
-        const patentData = req.body
+        const patentData = req.body;
+        const patentDocument = req.file.filename;
         const { filename, path: filePath } = req.file;
-        console.log('file name ==>', req.file.filename);
+        console.log('file name ==>', patentDocument);
         console.log('Controller for handleFileConversion ==>>',req.file)
         const patentDataSubmission = await patentSubmissionservice.insertPatentFormData(req.body, req.file.filename);
         console.log('ID ==>>', patentDataSubmission.rows[0].id);
@@ -42,12 +43,30 @@ module.exports.insertPatentsubmission = async(req, res, next) => {
             status : 'done',
             massage : 'data inserted suceessfully',
             patentData ,
-            filename,
+            patentDocument,
             filePath: path.join('/', filePath),
             patentId : patentDataSubmission.rows[0].id
             
         })
 
         }
+}
+
+module.exports.updatePatentSubMissiom = async(req, res, next) => {
+    console.log('data in controller' , req.body);
+    console.log('ID in controller ==>', req.body.patentId);
+    const updatedPatentData = req.body;
+    const  patentId = req.body.patentId;
+    const patentDocument = req.file.filename
+    console.log(' updated file in Cotroller ', req.file);
+    const updatedPatentSubmissionData = await patentSubmissionservice.updatPatentSubmission({updatedPatentData, patentId, patentDocument});
+    if(updatedPatentSubmissionData.status === 'done'){
+        res.json({
+            status : 'done',
+            massage : 'Data updated successfully',
+            updatedPatentData : updatedPatentData,
+            patentDocument
+        })
+    }
 }
 
